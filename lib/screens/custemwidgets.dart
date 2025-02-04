@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
 Widget field(
     TextEditingController controllername, String labeltext, String hinttext,
@@ -13,7 +12,7 @@ Widget field(
     decoration: InputDecoration(
         fillColor: colr,
         filled: true,
-        border: OutlineInputBorder(),
+        border: const OutlineInputBorder(),
         labelText: labeltext,
         hintText: hinttext),
     keyboardType: inputtype,
@@ -33,7 +32,7 @@ Widget custemcard(String name, Function funtionname) {
         child: Center(
           child: Text(
             name,
-            style: TextStyle(color: Colors.white, fontSize: 25),
+            style: const TextStyle(color: Colors.white, fontSize: 25),
           ),
         ),
       ),
@@ -41,13 +40,13 @@ Widget custemcard(String name, Function funtionname) {
   );
 }
 
-customsnackbar(BuildContext context, String content, Color color) {
-  return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+void customsnackbar(BuildContext context, String content, Color color) {
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
     behavior: SnackBarBehavior.floating,
     content: Text(content),
     backgroundColor: color,
-    margin: EdgeInsets.all(10),
-    padding: EdgeInsets.all(10),
+    margin: const EdgeInsets.all(10),
+    padding: const EdgeInsets.all(10),
   ));
 }
 
@@ -66,7 +65,7 @@ Widget fieledvalidation(
     decoration: InputDecoration(
         fillColor: colr,
         filled: true,
-        border: OutlineInputBorder(),
+        border: const OutlineInputBorder(),
         labelText: labeltext,
         hintText: hinttext),
     keyboardType: inputtype,
@@ -97,7 +96,7 @@ Widget fieldValidation(
 conformationdialog(
     {required BuildContext context,
     required String content,
-    required void Function()? onPressed}) {
+    required void Function()? yesonPressed}) {
   return showDialog(
       context: context,
       builder: (context) {
@@ -109,7 +108,7 @@ conformationdialog(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text(
+                child: const Text(
                   "Cancel",
                   style: TextStyle(color: Colors.black),
                 )),
@@ -126,9 +125,9 @@ conformationdialog(
                             const Color.fromARGB(255, 255, 255, 255),
                       ),
                       onPressed: () {
-                        onPressed;
+                        yesonPressed;
                       },
-                      child: Text("Add"),
+                      child: const Text("Add"),
                     )))
           ],
         );
@@ -139,7 +138,7 @@ fieldalert(
     {required BuildContext context,
     required String text,
     required TextEditingController controllername,
-    required void Function()? onPressed}) {
+    required void Function()? yesonPressed}) {
   showDialog(
       context: context,
       builder: (context) {
@@ -147,7 +146,7 @@ fieldalert(
           title: Text(text),
           content: TextField(
             controller: controllername,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelText: "Brand",
               hintText: "Brand Name",
             ),
@@ -157,7 +156,7 @@ fieldalert(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text(
+                child: const Text(
                   "Cancel",
                   style: TextStyle(color: Colors.black),
                 )),
@@ -169,10 +168,10 @@ fieldalert(
                 foregroundColor: const Color.fromARGB(255, 255, 255, 255),
               ),
               onPressed: () {
-                onPressed;
+                yesonPressed;
                 Navigator.pop(context);
               },
-              child: Text("Add"),
+              child: const Text("Add"),
             )
           ],
         );
@@ -192,16 +191,16 @@ Widget customText(
 
 conformationDialog(
     {required BuildContext context,
-    required void Function()? onPressed}) async {
+    required void Function()? yesonPressed}) async {
   return await showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text(
+          title: const Text(
             "Delete it",
             style: TextStyle(fontSize: 50),
           ),
-          content: Text(
+          content: const Text(
             "Are you Sure you want to delete It?",
             style: TextStyle(color: Colors.black),
           ),
@@ -210,7 +209,7 @@ conformationDialog(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text(
+                child: const Text(
                   "Cancel",
                   style: TextStyle(color: Colors.black),
                 )),
@@ -222,9 +221,9 @@ conformationDialog(
                 foregroundColor: const Color.fromARGB(255, 255, 255, 255),
               ),
               onPressed: () {
-                onPressed;
+                yesonPressed;
               },
-              child: Text("Delete"),
+              child: const Text("Delete"),
             )
           ],
         );
@@ -238,10 +237,11 @@ class CustemElevatedButton extends StatelessWidget {
   Color foreground;
 
   CustemElevatedButton(
-      {required this.ButtonName,
+      {super.key, required this.ButtonName,
       required this.actionFuntion,
       this.background = Colors.black,
       this.foreground = Colors.white});
+  @override
   Widget build(BuildContext context) {
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
@@ -262,11 +262,12 @@ class CustemElevatedButtonWithIcon extends StatelessWidget {
   IconData icon;
 
   CustemElevatedButtonWithIcon(
-      {required this.ButtonName,
+      {super.key, required this.ButtonName,
       required this.actionFuntion,
       required this.icon,
       this.background = Colors.black,
       this.foreground = Colors.white});
+  @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
         icon: Icon(icon),
@@ -297,7 +298,7 @@ class Custemsnackbarforexception extends StatefulWidget {
   Exception e;
   BuildContext context;
 
-  Custemsnackbarforexception({required this.e, required this.context});
+  Custemsnackbarforexception({super.key, required this.e, required this.context});
 
   @override
   State<Custemsnackbarforexception> createState() =>
@@ -315,19 +316,19 @@ class _CustemsnackbarforexceptionState
     log(errormessage);
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         behavior: SnackBarBehavior.floating,
-        duration: Duration(seconds: 2),
-        margin: EdgeInsets.all(8),
+        duration: const Duration(seconds: 2),
+        margin: const EdgeInsets.all(8),
         backgroundColor: Colors.red,
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         content: Text(
-          "Error: ${errormessage}",
-          style: TextStyle(fontSize: 15),
+          "Error: $errormessage",
+          style: const TextStyle(fontSize: 15),
         )));
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return const Scaffold();
   }
 }
 
@@ -336,12 +337,59 @@ custumSnackBarException(Object e, BuildContext context) {
   log(errormessage);
   return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       behavior: SnackBarBehavior.floating,
-      duration: Duration(seconds: 2),
-      margin: EdgeInsets.all(8),
+      duration: const Duration(seconds: 2),
+      margin: const EdgeInsets.all(8),
       backgroundColor: Colors.red,
-      padding: EdgeInsets.all(8),
+      padding: const EdgeInsets.all(8),
       content: Text(
-        "Error: ${errormessage}",
-        style: TextStyle(fontSize: 15),
+        "Error: $errormessage",
+        style: const TextStyle(fontSize: 15),
       )));
+}
+
+void CustumAlertDialog(
+    {required BuildContext context,
+    required String title,
+    required String subtitle,
+    required String noButton,
+    required String yesButton,
+    required void Function() yesonPressed,
+    required void Function() noonpressed}) {
+  showDialog(
+      context: context,
+      builder: (Context) {
+        return AlertDialog(
+          title: Text(
+            title,
+            style: const TextStyle(fontSize: 50),
+          ),
+          content: Text(
+            subtitle,
+            style: const TextStyle(color: Colors.black),
+          ),
+          actions: [
+            TextButton(
+                onPressed: noonpressed,
+                child: Text(
+                  noButton,
+                  style: const TextStyle(color: Colors.black),
+                )),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                backgroundColor: Colors.black,
+                foregroundColor: const Color.fromARGB(255, 255, 255, 255),
+              ),
+              onPressed: yesonPressed,
+              child: Text(yesButton),
+            )
+          ],
+        );
+      });
+}
+
+void popTwice(BuildContext context) {
+  Navigator.pop(context); // Pops the current route
+  Navigator.pop(context); // Pops the previous route
 }

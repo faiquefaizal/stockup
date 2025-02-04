@@ -1,17 +1,15 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:stockup/db_funtions.dart/brand_funtions.dart';
 import 'package:stockup/db_funtions.dart/product_funtion.dart';
-import 'package:stockup/main.dart';
 import 'package:stockup/models/brands/brand_model.dart';
 import 'package:stockup/models/product/product_model.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:stockup/screens/custemwidgets.dart';
 
 class Additemspage extends StatefulWidget {
-  Additemspage({super.key});
+  const Additemspage({super.key});
 
   @override
   State<Additemspage> createState() => _AdditemspageState();
@@ -60,10 +58,10 @@ class _AdditemspageState extends State<Additemspage> {
         appBar: AppBar(
           foregroundColor: Colors.white,
           backgroundColor: Colors.black,
-          title: Text("Add Items"),
+          title: const Text("Add Items"),
         ),
         body: Padding(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: SingleChildScrollView(
             child: Form(
               key: _form,
@@ -84,41 +82,41 @@ class _AdditemspageState extends State<Additemspage> {
                                 child: customText(text: "enter image"),
                               )),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   fieledvalidation(
                       _itemnamecontroller, "item name", "model name",
                       inputtype: TextInputType.text, (value) {
-                    if (value == null || value.isEmpty) {
+                    if (value == null || value.trim().isEmpty) {
                       return "Please enter item name";
                     }
                     return null;
                   }),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   fieledvalidation(_pricecontroller, "Price", "buying price",
                       inputtype: TextInputType.number, (value) {
-                    if (value == null || value.isEmpty) {
+                    if (value == null || value.trim().isEmpty) {
                       return "Please enter item name";
                     }
-                    if (int.tryParse(value!) == null) {
+                    if (int.tryParse(value) == null) {
                       return "Please enter a valid number";
                     }
                     return null;
                   }),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   fieledvalidation(
                       _sellingprice, "Selling price", "Selling price",
                       inputtype: TextInputType.number, (value) {
                     if (value == null || value.isEmpty) {
                       return "Please enter selling price";
                     }
-                    if (int.tryParse(value!) == null) {
+                    if (int.tryParse(value) == null) {
                       return "Please enter a valid number";
                     }
                     return null;
                   }),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Row(
                     children: [
                       ValueListenableBuilder(
@@ -135,7 +133,7 @@ class _AdditemspageState extends State<Additemspage> {
                                 );
                               }).toList(),
                               value: selectedBrand,
-                              hint: Text("Select a Brand"),
+                              hint: const Text("Select a Brand"),
                               onChanged: (selectedValue) {
                                 setState(() {
                                   selectedBrand = selectedValue;
@@ -143,17 +141,17 @@ class _AdditemspageState extends State<Additemspage> {
                               },
                             );
                           }),
-                      SizedBox(
+                      const SizedBox(
                         width: 20,
                       ),
                       Expanded(
                         child: fieledvalidation(
                             _quantity, "Quatity", "Stock Count",
                             inputtype: TextInputType.number, (value) {
-                          if (value == null || value.isEmpty) {
+                          if (value == null || value.trim().isEmpty) {
                             return "Please enter quatity";
                           }
-                          if (int.tryParse(value!) == null) {
+                          if (int.tryParse(value) == null) {
                             return "Please enter a valid number";
                           }
                           return null;
@@ -161,52 +159,52 @@ class _AdditemspageState extends State<Additemspage> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   fieledvalidation(_ramcontroller, "Ram", "enter the ram ",
                       inputtype: TextInputType.number, (value) {
-                    if (value == null || value.isEmpty) {
+                    if (value == null || value.trim().isEmpty) {
                       return "Please enter RAM";
                     }
 
                     return null;
                   }),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   fieledvalidation(_colorcontroller, "color",
                       "enter the color of the  phone", (value) {
-                    if (value == null || value.isEmpty) {
+                    if (value == null || value.trim().isEmpty) {
                       return "Please enter Color";
                     }
 
                     return null;
                   }),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   fieledvalidation(
                       _storagecontroller, "Storage", "phone storage capacity",
                       inputtype: TextInputType.number, (value) {
-                    if (value == null || value.isEmpty) {
+                    if (value == null || value.trim().isEmpty) {
                       return "Please enter Storage";
                     }
 
                     return null;
                   }),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   fieledvalidation(
                       _operationgsystemcontroller, "OS", "Operating System",
                       (value) {
-                    if (value == null || value.isEmpty) {
+                    if (value == null || value.trim().isEmpty) {
                       return "Please enter operating system";
                     }
                     return null;
                   }),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   fieledvalidation(_screensize, "Screen size", "Screen Size",
                       (value) {
-                    if (value == null || value.isEmpty) {
+                    if (value == null || value.trim().isEmpty) {
                       return "Please enter  screen size";
                     }
                     return null;
                   }),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   SizedBox(
@@ -221,7 +219,7 @@ class _AdditemspageState extends State<Additemspage> {
                             addItemsbutton();
                           }
                         },
-                        child: Text("Add Product")),
+                        child: const Text("Add Product")),
                   )
                 ],
               ),
@@ -238,7 +236,7 @@ class _AdditemspageState extends State<Additemspage> {
     return TextFormField(
       controller: controllername,
       decoration: InputDecoration(
-          border: OutlineInputBorder(),
+          border: const OutlineInputBorder(),
           labelText: labeltext,
           hintText: hinttext),
       keyboardType: inputtype,
@@ -272,10 +270,8 @@ class _AdditemspageState extends State<Additemspage> {
         brandId: selectedBrand!,
         quatity: quatity,
         imagePath: imagepath!);
-    if (product != null) {
-      addProduct(product);
-      Navigator.pop(context);
-      // customsnackbar(context, "product added Sucessfully", Colors.green);
+    addProduct(product);
+    Navigator.pop(context);
+    // customsnackbar(context, "product added Sucessfully", Colors.green);
     }
-  }
 }

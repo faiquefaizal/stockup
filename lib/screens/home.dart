@@ -1,13 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:stockup/db_funtions.dart/brand_funtions.dart';
 import 'package:stockup/db_funtions.dart/business_profile.dart';
 import 'package:stockup/db_funtions.dart/product_funtion.dart';
-import 'package:stockup/db_funtions.dart/sale_funtion.dart';
 import 'package:stockup/models/product/product_model.dart';
+import 'package:stockup/notifications/notification.dart';
 import 'package:stockup/screens/custemwidgets.dart';
+import 'package:stockup/screens/notifications_history.dart';
 import 'package:stockup/screens/product_detail_page.dart';
 
 class Home extends StatefulWidget {
@@ -22,22 +22,24 @@ final _searchfieldcontroller = TextEditingController();
 class _HomeState extends State<Home> {
   @override
   void initState() {
-    getProfileData();
-    getProducts();
-    getBrand();
-    getAllSales();
-    _searchfieldcontroller.addListener(_filteredText);
+    _searchfieldcontroller.addListener(_filteredProducts);
     // TODO: implement initState
     super.initState();
   }
 
-  List<ProductModel> filterproducts = [];
-  void _filteredText() {
+  String _selected = "All";
+  int? _selected1;
+
+  List<ProductModel> filterproducts = productsnotifier.value;
+  void _filteredProducts() {
     setState(() {
       filterproducts = productsnotifier.value.where((value) {
-        return value.productame
+        var brandMatch = _selected == "All" ||
+            (value.brandId == brandListnotifier.value[_selected1!].brandId);
+        var filterbrand = value.productame
             .toLowerCase()
             .contains(_searchfieldcontroller.text.toLowerCase());
+        return brandMatch && filterbrand;
       }).toList();
     });
   }
@@ -46,6 +48,9 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        floatingActionButton: FloatingActionButton(onPressed: () async {
+          await showNotifcation(title: "check", body: "hdfskjhgkjh");
+        }),
         body: Padding(
           padding: const EdgeInsets.all(20),
           child:
@@ -56,7 +61,7 @@ class _HomeState extends State<Home> {
                   valueListenable: businessprofilenotifier,
                   builder: (context, profile, child) {
                     if (profile == null) {
-                      return Text(
+                      return const Text(
                         "Shop name",
                         style: TextStyle(color: Colors.black),
                       );
@@ -68,17 +73,20 @@ class _HomeState extends State<Home> {
                           ),
                           Text(
                             profile.shopname,
-                            style: TextStyle(color: Colors.black),
+                            style: const TextStyle(color: Colors.black),
                           ),
                         ],
                       );
                     }
                   },
                 ),
-                Spacer(),
+                const Spacer(),
                 IconButton(
-                    onPressed: () {},
-                    icon: Icon(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const NotificationsHistory()));
+                    },
+                    icon: const Icon(
                       Icons.notifications_active_rounded,
                       size: 40,
                     ))
@@ -86,23 +94,84 @@ class _HomeState extends State<Home> {
             ),
             TextField(
               controller: _searchfieldcontroller,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   fillColor: Colors.black12,
                   filled: true,
                   suffixIcon: Icon(Icons.search),
                   hintText: "Search"),
             ),
+            Row(children: [
+              ChoiceChip(
+                label: Text(
+                  "All",
+                  style: (_selected == "All")
+                      ? const TextStyle(color: Colors.white)
+                      : const TextStyle(color: Colors.black),
+                ),
+                selected: _selected == "All",
+                onSelected: (selected) => setState(() {
+                  _selected = "All";
+                  _selected1 = -1;
+                  _filteredProducts();
+                }),
+                selectedColor: Colors.black,
+                disabledColor: Colors.white,
+                showCheckmark: false,
+              ),
+              Expanded(
+                child: ValueListenableBuilder(
+                    valueListenable: brandListnotifier,
+                    builder: (context, brands, child) {
+                      return SizedBox(
+                        height: 50,
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: brands.length,
+                            itemBuilder: (context, index) {
+                              var brandMatch = brands[index];
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ChoiceChip(
+                                  label: Text(
+                                    brandMatch.brandname,
+                                    style: (_selected1 == index)
+                                        ? const TextStyle(color: Colors.white)
+                                        : const TextStyle(color: Colors.black),
+                                  ),
+                                  selected: _selected1 == index,
+                                  onSelected: (selected) => setState(() {
+                                    if (selected) {
+                                      _selected1 = index;
+                                      _selected = "";
+                                    } else {
+                                      _selected = "All";
+                                      _selected1 = -1;
+                                    }
+
+                                    _filteredProducts();
+                                  }),
+                                  selectedColor: Colors.black,
+                                  disabledColor: Colors.white,
+                                  showCheckmark: false,
+                                ),
+                              );
+                            }),
+                      );
+                    }),
+              ),
+            ]),
             Expanded(
               child: ValueListenableBuilder(
                   valueListenable: productsnotifier,
                   builder: (context, productlist, child) {
-                    var displaylist = (_searchfieldcontroller.text.isEmpty)
-                        ? productlist
-                        : filterproducts;
+                    var displaylist =
+                        // (_searchfieldcontroller.text.isEmpty)
+                        //     ? productlist
+                        filterproducts;
                     return GridView.builder(
                         itemCount: displaylist.length,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                             childAspectRatio: 0.70, crossAxisCount: 2),
                         itemBuilder: (context, index) {
                           var product = displaylist[index];
@@ -124,7 +193,7 @@ class _HomeState extends State<Home> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Container(
+                                    SizedBox(
                                       height: 150,
                                       width: double.infinity,
                                       child: Image(

@@ -3,7 +3,7 @@ import 'package:stockup/models/sales/sale_item/product_sale_model.dart';
 part 'sales_model.g.dart';
 
 @HiveType(typeId: 3)
-class SalesModel {
+class SalesModel extends HiveObject {
   @HiveField(0)
   String custumerName;
   @HiveField(1)

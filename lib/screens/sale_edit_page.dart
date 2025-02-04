@@ -2,11 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:stockup/db_funtions.dart/brand_funtions.dart';
 import 'package:stockup/db_funtions.dart/product_funtion.dart';
 import 'package:stockup/db_funtions.dart/product_sale_funtion.dart';
 import 'package:stockup/db_funtions.dart/sale_funtion.dart';
-import 'package:stockup/models/brands/brand_model.dart';
 import 'package:stockup/models/product/product_model.dart';
 import 'package:stockup/models/sales/sale_/sales_model.dart';
 import 'package:stockup/models/sales/sale_item/product_sale_model.dart';
@@ -34,7 +32,7 @@ class _SaleEditPageState extends State<SaleEditPage> {
 
   DateTime? date;
 
-  TextEditingController _datecontroller = TextEditingController();
+  final TextEditingController _datecontroller = TextEditingController();
   @override
   void initState() {
     _loadSale();
@@ -51,6 +49,7 @@ class _SaleEditPageState extends State<SaleEditPage> {
     // final _productname = TextEditingController();
     _pricecontroller.text = sale.totalSalePrice.toString();
     productList = sale.saleProducts;
+    date = sale.saleDate;
     total = sale.totalSalePrice.toInt();
     productSaleNotifier.value = List.from(sale.saleProducts);
     _datecontroller.text = DateFormat('yyyy-MM-dd').format(sale.saleDate);
@@ -63,25 +62,25 @@ class _SaleEditPageState extends State<SaleEditPage> {
     return SafeArea(
       child: Scaffold(
         body: Padding(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 "Edit Sale",
                 style: TextStyle(fontSize: 60, color: Colors.black),
               ),
               field(_custemernamecontroller, "Custemer Name", "Name"),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               field(_custemernumbercontroller, "Phone number", "Number"),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               SizedBox(
                 width: 200,
                 child: TextFormField(
                   controller: _datecontroller,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       labelText: "DATE",
                       prefixIcon: Icon(Icons.calendar_month),
                       border: OutlineInputBorder()),
@@ -91,7 +90,7 @@ class _SaleEditPageState extends State<SaleEditPage> {
                   },
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Expanded(
@@ -108,7 +107,7 @@ class _SaleEditPageState extends State<SaleEditPage> {
                             return Dismissible(
                                 background: Container(
                                   color: Colors.red,
-                                  child: Icon(Icons.delete),
+                                  child: const Icon(Icons.delete),
                                 ),
                                 direction: DismissDirection.endToStart,
                                 onDismissed: (direction) {
@@ -122,7 +121,7 @@ class _SaleEditPageState extends State<SaleEditPage> {
                                   child: ListTile(
                                     title: Text(
                                       productDetails.productame,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold),
                                     ),
@@ -139,7 +138,7 @@ class _SaleEditPageState extends State<SaleEditPage> {
                 ButtonName: "Add product",
                 actionFuntion: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => AddProductToSale()));
+                      builder: (context) => const AddProductToSale()));
                 },
                 background: Colors.white,
                 foreground: Colors.black,
@@ -152,8 +151,8 @@ class _SaleEditPageState extends State<SaleEditPage> {
                       (previoesvalue, current) =>
                           previoesvalue! + current.price);
                   return Text(
-                    (total == null) ? "Total: ₹ 0" : "Total: ₹ ${total}",
-                    style: TextStyle(
+                    (total == null) ? "Total: ₹ 0" : "Total: ₹ $total",
+                    style: const TextStyle(
                         fontSize: 50,
                         fontStyle: FontStyle.italic,
                         fontWeight: FontWeight.w700,
@@ -166,10 +165,10 @@ class _SaleEditPageState extends State<SaleEditPage> {
                   width: double.infinity,
                   child: CustemElevatedButton(
                       ButtonName: "Edit Sale",
-                      actionFuntion: () {
-                        editSaleButton();
+                      actionFuntion: () async {
+                        await editSaleButton();
                       })),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
             ],
@@ -210,21 +209,21 @@ class _SaleEditPageState extends State<SaleEditPage> {
         saleId: saleId!,
         saleProducts: productList);
     try {
-      editSale(sale);
+      await editSale(sale);
       log("funtionpressed");
       customsnackbar(context, "Sale Edited", Colors.green);
-      Navigator.of(context);
+      Navigator.of(context).pop();
     } catch (e) {
       String errormessage = e.toString().replaceFirst("Exception", "");
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           behavior: SnackBarBehavior.floating,
-          duration: Duration(seconds: 2),
-          margin: EdgeInsets.all(8),
+          duration: const Duration(seconds: 2),
+          margin: const EdgeInsets.all(8),
           backgroundColor: Colors.red,
-          padding: EdgeInsets.all(8),
+          padding: const EdgeInsets.all(8),
           content: Text(
-            "Error: ${errormessage}",
-            style: TextStyle(fontSize: 15),
+            "Error: $errormessage",
+            style: const TextStyle(fontSize: 15),
           )));
     }
   }

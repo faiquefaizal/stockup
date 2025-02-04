@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:stockup/db_funtions.dart/brand_funtions.dart';
-import 'package:stockup/models/brands/brand_model.dart';
 import 'package:stockup/screens/custemwidgets.dart';
 
 class BrandsEditpage extends StatefulWidget {
@@ -17,13 +16,13 @@ class _BrandsEditpageState extends State<BrandsEditpage> {
     super.initState();
   }
 
-  TextEditingController _brandeditname = TextEditingController();
+  final TextEditingController _brandeditname = TextEditingController();
   @override
   Widget build(BuildContext context) {
     getBrand();
     return Scaffold(
       appBar: AppBar(
-        title: Text("Catagories"),
+        title: const Text("Catagories"),
       ),
       body: ValueListenableBuilder(
           valueListenable: brandListnotifier,
@@ -36,7 +35,7 @@ class _BrandsEditpageState extends State<BrandsEditpage> {
                   return ListTile(
                       title: Text(
                         brand.brandname,
-                        style: TextStyle(fontSize: 30),
+                        style: const TextStyle(fontSize: 30),
                       ),
                       trailing: IconButton(
                           onPressed: () {
@@ -44,11 +43,11 @@ class _BrandsEditpageState extends State<BrandsEditpage> {
                                 context: context,
                                 builder: (context) {
                                   return AlertDialog(
-                                    title: Text(
+                                    title: const Text(
                                       "Delete it",
                                       style: TextStyle(fontSize: 50),
                                     ),
-                                    content: Text(
+                                    content: const Text(
                                       "Are you Sure you want to delete It?",
                                       style: TextStyle(color: Colors.black),
                                     ),
@@ -57,7 +56,7 @@ class _BrandsEditpageState extends State<BrandsEditpage> {
                                           onPressed: () {
                                             Navigator.pop(context);
                                           },
-                                          child: Text(
+                                          child: const Text(
                                             "Cancel",
                                             style:
                                                 TextStyle(color: Colors.black),
@@ -73,14 +72,15 @@ class _BrandsEditpageState extends State<BrandsEditpage> {
                                         ),
                                         onPressed: () {
                                           deleteBrand(index);
+                                          Navigator.pop(context);
                                         },
-                                        child: Text("Delete"),
+                                        child: const Text("Delete"),
                                       )
                                     ],
                                   );
                                 });
                           },
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.delete,
                             color: Colors.red,
                           )),
@@ -102,14 +102,14 @@ class _BrandsEditpageState extends State<BrandsEditpage> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text("edit Brand"),
+            title: const Text("edit Brand"),
             content: field(_brandeditname, "Brand", "Brand Name"),
             actions: [
               TextButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: Text(
+                  child: const Text(
                     "Cancel",
                     style: TextStyle(color: Colors.black),
                   )),
@@ -124,7 +124,7 @@ class _BrandsEditpageState extends State<BrandsEditpage> {
                   await _editbuttonbutton(index);
                   Navigator.pop(context);
                 },
-                child: Text("edit"),
+                child: const Text("edit"),
               )
             ],
           );

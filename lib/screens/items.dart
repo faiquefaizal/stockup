@@ -28,7 +28,7 @@ class Items extends StatelessWidget {
                           var product = productlist[index];
                           var brandname = findBrand(product.brandId);
                           return Padding(
-                            padding: EdgeInsets.all(5),
+                            padding: const EdgeInsets.all(5),
                             child: InkWell(
                               onTap: () {
                                 Navigator.of(context).push(MaterialPageRoute(
@@ -51,16 +51,16 @@ class Items extends StatelessWidget {
                                       children: [
                                         Text(
                                           product.productame,
-                                          style: TextStyle(color: Colors.black),
+                                          style: const TextStyle(color: Colors.black),
                                         ),
                                         Text(
                                           "Qty: ${product.quatity.toString()}",
                                           style: (product.quatity > 5)
-                                              ? TextStyle(
+                                              ? const TextStyle(
                                                   color: Colors.green,
                                                   fontWeight: FontWeight.w900,
                                                   fontSize: 20)
-                                              : TextStyle(
+                                              : const TextStyle(
                                                   color: Colors.red,
                                                   fontWeight: FontWeight.w900,
                                                   fontSize: 20),
@@ -72,12 +72,12 @@ class Items extends StatelessWidget {
                                             context: context,
                                             builder: (context) {
                                               return AlertDialog(
-                                                title: Text(
+                                                title: const Text(
                                                   "Delete it",
                                                   style:
                                                       TextStyle(fontSize: 50),
                                                 ),
-                                                content: Text(
+                                                content: const Text(
                                                   "Are you Sure you want to delete It?",
                                                   style: TextStyle(
                                                       color: Colors.black),
@@ -87,7 +87,7 @@ class Items extends StatelessWidget {
                                                       onPressed: () {
                                                         Navigator.pop(context);
                                                       },
-                                                      child: Text(
+                                                      child: const Text(
                                                         "Cancel",
                                                         style: TextStyle(
                                                             color:
@@ -116,13 +116,13 @@ class Items extends StatelessWidget {
                                                           index);
                                                       Navigator.pop(context);
                                                     },
-                                                    child: Text("Delete"),
+                                                    child: const Text("Delete"),
                                                   )
                                                 ],
                                               );
                                             });
                                       },
-                                      icon: Icon(
+                                      icon: const Icon(
                                         Icons.delete,
                                         color: Colors.red,
                                       )),
@@ -175,11 +175,11 @@ class Items extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-              return Additemspage();
+              return const Additemspage();
             }));
           },
           backgroundColor: Colors.black,
-          child: Icon(
+          child: const Icon(
             Icons.add,
             color: Colors.white,
           ),

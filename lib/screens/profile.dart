@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stockup/screens/aboutus_page.dart';
 import 'package:stockup/screens/brand.dart';
 import 'package:stockup/screens/businesPage.dart';
 import 'package:stockup/screens/custemwidgets.dart';
@@ -25,7 +26,7 @@ class _ProfileState extends State<Profile> {
           ),
           custemcard("Business Profile", () {
             Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => Businespage()));
+                .push(MaterialPageRoute(builder: (context) => const Businespage()));
           }),
           custemcard("Brands", () {
             Navigator.of(context).push(MaterialPageRoute(
@@ -34,9 +35,12 @@ class _ProfileState extends State<Profile> {
           }),
           custemcard("Transactions", () {
             Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => TransactionsPage()));
+                MaterialPageRoute(builder: (context) => const TransactionsPage()));
           }),
-          custemcard("About", () {}),
+          custemcard("About", () {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => const AboutusPage()));
+          }),
         ],
       )),
     );

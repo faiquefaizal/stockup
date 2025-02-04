@@ -8,22 +8,22 @@ const BRAND_BOX = "brand";
 ValueNotifier<List<BrandModel>> brandListnotifier = ValueNotifier([]);
 
 Future<void> addBrand(BrandModel value) async {
-  var box = await Hive.openBox<BrandModel>(BRAND_BOX);
-  box.add(value);
+  var box = Hive.box<BrandModel>(BRAND_BOX);
+  await box.add(value);
   log("Added brand: $value");
   getBrand();
 }
 
-Future<void> getBrand() async {
+void getBrand() {
   brandListnotifier.value.clear();
 
-  var box = await Hive.openBox<BrandModel>(BRAND_BOX);
+  var box = Hive.box<BrandModel>(BRAND_BOX);
 
   brandListnotifier.value.addAll(box.values);
 
   var data = box.values;
   brandListnotifier.notifyListeners();
-  print(" data $data");
+  log(" data $data");
 }
 
 String findBrand(String id) {
@@ -38,18 +38,19 @@ String findBrand(String id) {
 }
 
 Future<void> deleteBrand(int index) async {
-  var box = await Hive.openBox<BrandModel>(BRAND_BOX);
-  box.deleteAt(index);
+  var box = Hive.box<BrandModel>(BRAND_BOX);
+  await box.deleteAt(index);
   getBrand();
 }
 
 Future<void> editBrand(int index, String brand) async {
-  var box = await Hive.openBox<BrandModel>(BRAND_BOX);
+  var box = Hive.box<BrandModel>(BRAND_BOX);
   var currentvalue = box.getAt(index);
   if (currentvalue == null) {
-    return print("no index");
+    return log("no index");
   }
-  box.putAt(index, BrandModel(brandname: brand, brandId: currentvalue.brandId));
+  await box.putAt(
+      index, BrandModel(brandname: brand, brandId: currentvalue.brandId));
   getBrand();
 }
 
@@ -58,6 +59,11 @@ String generateId() {
 }
 
 List<BrandModel> getBrandList() {
+  var box = Hive.box<BrandModel>(BRAND_BOX);
+  return box.values.toList();
+}
+
+List<BrandModel> getAllBrand() {
   var box = Hive.box<BrandModel>(BRAND_BOX);
   return box.values.toList();
 }

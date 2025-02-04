@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -17,7 +16,7 @@ class Homescreen extends StatefulWidget {
 
 class _HomescreenState extends State<Homescreen> {
   int _index = 0;
-  final screens = [Home(), Dashboard(), Add(), Items(), Profile()];
+  final screens = [const Home(), const Dashboard(), const Add(), const Items(), const Profile()];
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +30,7 @@ class _HomescreenState extends State<Homescreen> {
                 _index = index;
               }),
           currentIndex: _index,
-          items: [
+          items: const [
             BottomNavigationBarItem(
               // backgroundColor: Colors.black,
               icon: Icon(Icons.home),

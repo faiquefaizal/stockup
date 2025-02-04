@@ -26,7 +26,7 @@ class ProductDetailPage extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
+              SizedBox(
                 width: double.infinity,
                 height: 320,
                 child: Image(
@@ -36,10 +36,10 @@ class ProductDetailPage extends StatelessWidget {
               ),
               Text(
                 productdetails.productame,
-                style: TextStyle(color: Colors.black, fontSize: 40),
+                style: const TextStyle(color: Colors.black, fontSize: 40),
               ),
               Text("₹${productdetails.sellingPrice.toString()}",
-                  style: TextStyle(color: Colors.black, fontSize: 50)),
+                  style: const TextStyle(color: Colors.black, fontSize: 50)),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -95,7 +95,7 @@ class ProductDetailPage extends StatelessWidget {
                       backgroundColor: const Color.fromARGB(255, 163, 163, 163),
                     ),
                     child: TextButton(
-                      child: Text(
+                      child: const Text(
                         "Edit product",
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
@@ -117,7 +117,7 @@ class ProductDetailPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(0)),
                       backgroundColor: Colors.black,
                     ),
-                    child: Text(
+                    child: const Text(
                       "Add to Sale",
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     )),

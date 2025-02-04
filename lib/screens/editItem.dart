@@ -38,7 +38,7 @@ class _EdititemState extends State<Edititem> {
   String? productId;
 
   _loadProduct(int index) async {
-    var product = await getProductById(index);
+    var product = getProductById(index);
     if (product != null) {
       _itemnamecontroller.text = product.productame;
       _colorcontroller.text = product.color;
@@ -78,7 +78,7 @@ class _EdititemState extends State<Edititem> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("edit Item"),
+        title: const Text("edit Item"),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -99,15 +99,15 @@ class _EdititemState extends State<Edititem> {
                             child: customText(text: "enter image"),
                           )),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               field(_itemnamecontroller, "item name", "model name"),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               field(_pricecontroller, "Price", "buying price"),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               field(_sellingprice, "Selling price", "Selling price"),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(
                 children: [
                   ValueListenableBuilder(
@@ -124,7 +124,7 @@ class _EdititemState extends State<Edititem> {
                             );
                           }).toList(),
                           value: selectedBrand,
-                          hint: Text("Select a Brand"),
+                          hint: const Text("Select a Brand"),
                           onChanged: (selectedValue) {
                             setState(() {
                               selectedBrand = selectedValue;
@@ -132,7 +132,7 @@ class _EdititemState extends State<Edititem> {
                           },
                         );
                       }),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   Expanded(
@@ -140,17 +140,17 @@ class _EdititemState extends State<Edititem> {
                           inputtype: TextInputType.number)),
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               field(_ramcontroller, "Ram", "enter the ram "),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               field(_colorcontroller, "color", "enter the color of the  phone"),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               field(_storagecontroller, "Storage", "phone storage capacity"),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               field(_operationgsystemcontroller, "OS", "Operating System"),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               field(_screensize, "Screen size", "Screen Size"),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               SizedBox(
@@ -163,7 +163,7 @@ class _EdititemState extends State<Edititem> {
                     onPressed: () {
                       _savebutton();
                     },
-                    child: Text("Edit Product")),
+                    child: const Text("Edit Product")),
               )
             ],
           ),
@@ -178,7 +178,7 @@ class _EdititemState extends State<Edititem> {
     return TextFormField(
       controller: controllername,
       decoration: InputDecoration(
-          border: OutlineInputBorder(),
+          border: const OutlineInputBorder(),
           labelText: labeltext,
           hintText: hinttext),
       keyboardType: inputtype,

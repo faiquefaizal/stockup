@@ -41,6 +41,7 @@ dependencies:
   lottie: ^3.3.1
   intl: ^0.20.2
   fl_chart: ^0.70.2
+  flutter_local_notifications: ^18.0.1
 
 dev_dependencies:
   flutter_test:

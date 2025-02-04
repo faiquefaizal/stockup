@@ -32,6 +32,7 @@
 //   salenotifier.value.addAll(box.values);
 //   log(box.values.toString());
 // }
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:fl_chart/fl_chart.dart';
@@ -39,11 +40,9 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:stockup/db_funtions.dart/product_funtion.dart';
-import 'package:stockup/db_funtions.dart/product_sale_funtion.dart';
 import 'package:stockup/models/product/product_model.dart';
 import 'package:stockup/models/sales/sale_/sales_model.dart';
-import 'package:stockup/models/sales/sale_item/product_sale_model.dart';
-import 'package:stockup/screens/add.dart';
+import 'package:stockup/notifications/notification.dart';
 
 ValueNotifier<List<SalesModel>> salenotifier = ValueNotifier([]);
 const SALE_BOX = "salebox";
@@ -53,64 +52,83 @@ Future<void> addSale(SalesModel value) async {
   var productIds =
       value.saleProducts.map((element) => element.productId).toList();
   await box.put(value.saleId, value);
+  await box.flush();
   for (int i = 0; i < productIds.length; i++) {
     var productToUpdate = productBox.get(productIds[i]);
     if (productToUpdate != null) {
       productToUpdate.quatity -= value.saleProducts[i].quantity;
       productBox.put(productIds[i], productToUpdate);
       productsnotifier.notifyListeners();
-      getAllSales();
-      log("sale completed");
     } else {
       throw Exception("Product Not Found to make Sale");
     }
   }
+  getAllSales();
+  // log("sale completed");
+  await stockCheckNotification();
 }
 
 void getAllSales() {
   salenotifier.value.clear();
   var box = Hive.box<SalesModel>(SALE_BOX);
-  salenotifier.value.addAll(box.values);
-  // log(box.values.toString());
+  salenotifier.value = box.values.toList();
   salenotifier.notifyListeners();
+
+  // log(box.values.toString());
 }
 
-void deleteSale(int index) {
+void deleteSale(String id) {
   var box = Hive.box<SalesModel>(SALE_BOX);
-  box.deleteAt(index);
+  box.delete(id);
   getAllSales();
 }
 
 SalesModel getsaleByindex(int index) {
   var box = Hive.box<SalesModel>(SALE_BOX);
-  var sales = box.values;
+
   var sale = box.getAt(index);
   return sale!;
 }
 
-void editSale(SalesModel sale) {
+Future<void> editSale(SalesModel sale) async {
   var box = Hive.box<SalesModel>(SALE_BOX);
-  box.put(sale.saleId, sale);
+  await box.put(sale.saleId, sale);
   getAllSales();
   // log("edited");
+  await stockCheckNotification();
 }
 
 double getTotalSales() {
   var box = Hive.box<SalesModel>(SALE_BOX);
   var sales = salenotifier.value;
+  // log(sales.toString());
+
   return sales.fold(0, (pre, value) => pre + value.totalSalePrice);
 }
 
 int getTotalnoofproducts() {
-  var box = Hive.box<SalesModel>(SALE_BOX);
   var sales = salenotifier.value;
   int totalquantity = sales
       .expand((sale) => sale.saleProducts)
       .fold(0, (pre, cur) => pre + cur.quantity);
-  // log(totalquantity.toString());
-
+  log(totalquantity.toString());
+  log("salesnotifier${salenotifier.value.toString()}");
   return totalquantity;
 }
+// int getTotalnoofproducts() {
+//   log("worked");
+//   var sale = salenotifier.value;
+
+//   for (var element in sale) {
+//     log(element.saleProducts.length.toString());
+
+//     element.saleProducts.map((value) {
+//       value.quantity;
+//       log("test${value.quantity.toString()}\n");
+//     });
+//   }
+//   return 0;
+// }
 
 int getProfit() {
   var sales = salenotifier.value;
@@ -206,11 +224,11 @@ List<FlSpot> saleGraphList() {
     double x = i.toDouble();
     double y = (totalSaleByDate[i]["totalSale"] as int) / 1000.toDouble();
     spot.add(FlSpot(x, y));
-    log(totalSaleByDate.toString());
+    // log(totalSaleByDate.toString());
   }
 
   // return totalSaleByDate;
-  log(spot.toString());
+  // log(spot.toString());
   return spot;
 }
 
@@ -280,4 +298,34 @@ List<String> getAllSaleDate() {
   // print(dates);
   // log(dates.toString());
   return dates;
+}
+
+Future<void> stockCheckNotification() async {
+  var box = Hive.box<ProductModel>(PRODUCT_BOX);
+  var products = box.values;
+  for (var product in products) {
+    if (product.quatity <= 5) {
+      await showNotifcation(
+          title: "Low Stock Alert",
+          body: "${product.productame} has less than 5 units left");
+    }
+  }
+}
+
+void periodicCheck() {
+  Timer.periodic(const Duration(hours: 1), (check) async {
+    await stockCheckNotification();
+  });
+}
+
+void sample() {
+  var box = Hive.box<SalesModel>(SALE_BOX);
+  var value = box.values;
+
+  log("length outside loop: ${box.values.length.toString()}"); // Log length before the loop
+
+  for (var element in value) {
+    log("length inside loop: ${box.values.length.toString()}");
+    log("saleProducts length: ${element.saleProducts.length.toString()}\n");
+  }
 }

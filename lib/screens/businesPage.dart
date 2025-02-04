@@ -7,10 +7,9 @@ import 'package:stockup/db_funtions.dart/business_profile.dart';
 import 'package:stockup/models/businessprofile/business_profile.dart';
 
 import 'package:stockup/screens/custemwidgets.dart';
-import 'package:stockup/screens/profile.dart';
 
 class Businespage extends StatefulWidget {
-  Businespage({super.key});
+  const Businespage({super.key});
 
   @override
   State<Businespage> createState() => _BusinespageState();
@@ -61,10 +60,10 @@ class _BusinespageState extends State<Businespage> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         foregroundColor: Colors.white,
-        title: Text("Business Profile"),
+        title: const Text("Business Profile"),
       ),
       body: Padding(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: SingleChildScrollView(
           child: Form(
             key: _key,
@@ -80,12 +79,12 @@ class _BusinespageState extends State<Businespage> {
                           ? FileImage(File(imagepath!))
                           : null,
                       child: imagepath == null
-                          ? Center(
+                          ? const Center(
                               child: Text("click here to add"),
                             )
                           : null),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 25,
                 ),
                 fieledvalidation(_shopnamecontroller, "Business Name", "name",
@@ -98,7 +97,7 @@ class _BusinespageState extends State<Businespage> {
                   }
                   return null;
                 }),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
                 fieledvalidation(
@@ -111,7 +110,7 @@ class _BusinespageState extends State<Businespage> {
                   }
                   return null;
                 }, inputtype: TextInputType.phone),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
                 fieledvalidation(
@@ -127,7 +126,7 @@ class _BusinespageState extends State<Businespage> {
                   }
                   return null;
                 }, inputtype: TextInputType.emailAddress),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
                 fieledvalidation(
@@ -141,7 +140,7 @@ class _BusinespageState extends State<Businespage> {
                   }
                   return null;
                 }, inputtype: TextInputType.emailAddress),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
                 SizedBox(
@@ -156,7 +155,7 @@ class _BusinespageState extends State<Businespage> {
                             savebutton(context);
                           }
                         },
-                        child: Text("Save details")))
+                        child: const Text("Save details")))
               ],
             ),
           ),

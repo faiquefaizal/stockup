@@ -2,7 +2,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 part 'product_sale_model.g.dart';
 
 @HiveType(typeId: 4)
-class ProductSaleModel {
+class ProductSaleModel extends HiveObject {
   @HiveField(0)
   String productId;
   @HiveField(1)

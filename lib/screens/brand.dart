@@ -12,7 +12,7 @@ class Brands extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Brands"),
+        title: const Text("Brands"),
       ),
       body: Column(
         children: [
@@ -21,7 +21,7 @@ class Brands extends StatelessWidget {
           }),
           custemcard("Edit  Brands", () {
             Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => BrandsEditpage()));
+                MaterialPageRoute(builder: (context) => const BrandsEditpage()));
           }),
           custemcard("Delete Brands", () {}),
         ],
@@ -34,10 +34,8 @@ class Brands extends StatelessWidget {
     String brandId = DateTime.now().microsecondsSinceEpoch.toString();
     var brandname = BrandModel(brandname: brand, brandId: brandId);
 
-    if (brandname != null) {
-      addBrand(brandname);
-    }
-
+    addBrand(brandname);
+  
     _brandcontroller.clear();
   }
 
@@ -46,14 +44,14 @@ class Brands extends StatelessWidget {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text("Add Brand"),
+            title: const Text("Add Brand"),
             content: field(_brandcontroller, "Brand", "Brand Name"),
             actions: [
               TextButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: Text(
+                  child: const Text(
                     "Cancel",
                     style: TextStyle(color: Colors.black),
                   )),
@@ -68,7 +66,7 @@ class Brands extends StatelessWidget {
                   await _addButton();
                   Navigator.pop(context);
                 },
-                child: Text("Add"),
+                child: const Text("Add"),
               )
             ],
           );
