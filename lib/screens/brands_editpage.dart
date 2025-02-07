@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stockup/db_funtions.dart/brand_funtions.dart';
+import 'package:stockup/models/brands/brand_model.dart';
 import 'package:stockup/screens/custemwidgets.dart';
 
 class BrandsEditpage extends StatefulWidget {
@@ -85,19 +86,27 @@ class _BrandsEditpageState extends State<BrandsEditpage> {
                             color: Colors.red,
                           )),
                       onTap: () {
-                        alertbox(context, index);
+                        alertbox(context, brand);
                       });
                 });
           }),
     );
   }
 
-  _editbuttonbutton(int index) {
-    final brand = _brandeditname.text.trim();
-    editBrand(index, brand);
+  _editbuttonbutton(BrandModel value) {
+    final brand = BrandModel(
+        brandname: _brandeditname.text.trim(), brandId: value.brandId);
+
+    var check = brandCheck(brand);
+    if (check) {
+      customsnackbar(context, "Brand Already Exist", Colors.red);
+      return;
+    }
+    editBrand(brand);
+    Navigator.pop(context);
   }
 
-  alertbox(BuildContext context, int index) {
+  alertbox(BuildContext context, BrandModel brand) {
     showDialog(
         context: context,
         builder: (context) {
@@ -121,8 +130,7 @@ class _BrandsEditpageState extends State<BrandsEditpage> {
                   foregroundColor: const Color.fromARGB(255, 255, 255, 255),
                 ),
                 onPressed: () async {
-                  await _editbuttonbutton(index);
-                  Navigator.pop(context);
+                  await _editbuttonbutton(brand);
                 },
                 child: const Text("edit"),
               )

@@ -68,3 +68,11 @@ ProductModel getProductByProductId(String id) {
   var product = box.get(id);
   return product!;
 }
+
+bool productCheck(ProductModel product) {
+  var box = Hive.box<ProductModel>(PRODUCT_BOX);
+  var products = box.values;
+  return products.any((value) =>
+      value.productame.toLowerCase() == product.productame.toLowerCase() &&
+      value.productId != product.productId);
+}

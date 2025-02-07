@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:stockup/db_funtions.dart/sale_funtion.dart';
+import 'package:stockup/models/sales/sale_/sales_model.dart';
 import 'package:stockup/screens/sale_edit_page.dart';
 
 import 'custemwidgets.dart';
@@ -152,7 +152,8 @@ class _TransactionsPageState extends State<TransactionsPage> {
   //       ));
 
   // }
-
+  String selectedValue = "Filter By Date";
+  bool sort = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -161,14 +162,72 @@ class _TransactionsPageState extends State<TransactionsPage> {
       ),
       body: Column(
         children: [
+          Padding(
+            padding: EdgeInsets.all(8),
+            child: Row(
+              children: [
+                Text(
+                  "Filter",
+                  style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
+                ),
+                Spacer(),
+                DropdownButton(
+                    value: selectedValue,
+                    items: <String>[
+                      "Filter By Date",
+                      "Filter By Price",
+                      "Filter By Name"
+                    ]
+                        .map((element) => DropdownMenuItem<String>(
+                            value: element, child: Text(element)))
+                        .toList(),
+                    onChanged: (selected) {
+                      if (selected != null) {
+                        setState(() {
+                          selectedValue = selected;
+                        });
+                      }
+                    }),
+                IconButton(
+                    onPressed: () {
+                      setState(() {
+                        sort = !sort;
+                      });
+                    },
+                    icon: (sort)
+                        ? Icon(Icons.arrow_downward)
+                        : Icon(Icons.arrow_upward)) //sort buttton
+              ],
+            ),
+          ),
           ValueListenableBuilder(
             valueListenable: salenotifier,
             builder: (context, sales, child) {
+              List<SalesModel> sorted = List<SalesModel>.from(sales);
+              switch (selectedValue) {
+                case "Filter By Name":
+                  sortByName(sorted);
+                  break;
+                case "Filter By Price":
+                  sortByPrice(sorted);
+                  break;
+                case "Filter By Date":
+                  sortByDate(sorted);
+                  break;
+              }
+
+              if (!sort) {
+                sorted = sortList(sorted);
+              }
               return Expanded(
                 child: ListView.builder(
-                  itemCount: sales.length,
+                  itemCount: sorted.length,
                   itemBuilder: (context, index) {
-                    var sale = sales[index];
+                    var sale = sorted[index];
+                    var date = ddmmyyyyFormat(sale.saleDate);
                     return Card(
                       color: Colors.black,
                       child: Padding(
@@ -180,7 +239,10 @@ class _TransactionsPageState extends State<TransactionsPage> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("#${index + 1}"),
+                                Text(
+                                  "${date}",
+                                  style: TextStyle(fontSize: 20),
+                                ),
                                 Text(
                                   "Consumer Name: ${sale.custumerName}",
                                   style: const TextStyle(fontSize: 20),

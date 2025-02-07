@@ -20,22 +20,25 @@ class Brands extends StatelessWidget {
             alertbox(context);
           }),
           custemcard("Edit  Brands", () {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const BrandsEditpage()));
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const BrandsEditpage()));
           }),
-          custemcard("Delete Brands", () {}),
         ],
       ),
     );
   }
 
-  _addButton() {
+  _addButton(BuildContext context) {
     var brand = _brandcontroller.text.trim();
     String brandId = DateTime.now().microsecondsSinceEpoch.toString();
     var brandname = BrandModel(brandname: brand, brandId: brandId);
-
+    var check = brandCheck(brandname);
+    if (check) {
+      customsnackbar(context, "Brand Already Exist", Colors.red);
+      return;
+    }
     addBrand(brandname);
-  
+    Navigator.pop(context);
     _brandcontroller.clear();
   }
 
@@ -63,8 +66,7 @@ class Brands extends StatelessWidget {
                   foregroundColor: const Color.fromARGB(255, 255, 255, 255),
                 ),
                 onPressed: () async {
-                  await _addButton();
-                  Navigator.pop(context);
+                  await _addButton(context);
                 },
                 child: const Text("Add"),
               )

@@ -209,6 +209,11 @@ class _EdititemState extends State<Edititem> {
         brandId: selectedBrand!,
         quatity: quatity,
         imagePath: imagepath!);
+    var itemCheck = productCheck(product);
+    if (itemCheck) {
+      customsnackbar(context, "item already Exist", Colors.red);
+      return;
+    }
     await editProducts(product);
     Navigator.pop(context);
   }

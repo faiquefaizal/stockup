@@ -271,7 +271,7 @@ class _AddState extends State<Add> {
                 total = 0;
                 productSaleNotifier.value.clear();
                 productSaleNotifier.notifyListeners();
-                Navigator.pop(context);
+                popTwice(context);
               })));
     } catch (e) {
       String errormessage = e.toString().replaceFirst("Exception", "");

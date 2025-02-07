@@ -270,8 +270,13 @@ class _AdditemspageState extends State<Additemspage> {
         brandId: selectedBrand!,
         quatity: quatity,
         imagePath: imagepath!);
+    var itemCheck = productCheck(product);
+    if (itemCheck) {
+      customsnackbar(context, "Product Already Exist", Colors.red);
+      return;
+    }
     addProduct(product);
     Navigator.pop(context);
     // customsnackbar(context, "product added Sucessfully", Colors.green);
-    }
+  }
 }

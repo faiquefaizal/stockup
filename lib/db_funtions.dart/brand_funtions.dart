@@ -43,7 +43,7 @@ Future<void> deleteBrand(int index) async {
   getBrand();
 }
 
-Future<void> editBrand(int index, String brand) async {
+Future<void> firstEditBrand(int index, String brand) async {
   var box = Hive.box<BrandModel>(BRAND_BOX);
   var currentvalue = box.getAt(index);
   if (currentvalue == null) {
@@ -51,6 +51,13 @@ Future<void> editBrand(int index, String brand) async {
   }
   await box.putAt(
       index, BrandModel(brandname: brand, brandId: currentvalue.brandId));
+  getBrand();
+}
+
+Future<void> editBrand(BrandModel brand) async {
+  var box = Hive.box<BrandModel>(BRAND_BOX);
+
+  await box.put(brand.brandId, brand);
   getBrand();
 }
 
@@ -66,4 +73,12 @@ List<BrandModel> getBrandList() {
 List<BrandModel> getAllBrand() {
   var box = Hive.box<BrandModel>(BRAND_BOX);
   return box.values.toList();
+}
+
+bool brandCheck(BrandModel brand) {
+  var box = Hive.box<BrandModel>(BRAND_BOX);
+  var brands = box.values;
+  return brands.any((value) =>
+      value.brandname.toLowerCase() == brand.brandname.toLowerCase() &&
+      value.brandId != brand.brandId);
 }

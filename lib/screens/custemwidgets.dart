@@ -237,7 +237,8 @@ class CustemElevatedButton extends StatelessWidget {
   Color foreground;
 
   CustemElevatedButton(
-      {super.key, required this.ButtonName,
+      {super.key,
+      required this.ButtonName,
       required this.actionFuntion,
       this.background = Colors.black,
       this.foreground = Colors.white});
@@ -262,7 +263,8 @@ class CustemElevatedButtonWithIcon extends StatelessWidget {
   IconData icon;
 
   CustemElevatedButtonWithIcon(
-      {super.key, required this.ButtonName,
+      {super.key,
+      required this.ButtonName,
       required this.actionFuntion,
       required this.icon,
       this.background = Colors.black,
@@ -298,7 +300,8 @@ class Custemsnackbarforexception extends StatefulWidget {
   Exception e;
   BuildContext context;
 
-  Custemsnackbarforexception({super.key, required this.e, required this.context});
+  Custemsnackbarforexception(
+      {super.key, required this.e, required this.context});
 
   @override
   State<Custemsnackbarforexception> createState() =>
@@ -392,4 +395,55 @@ void CustumAlertDialog(
 void popTwice(BuildContext context) {
   Navigator.pop(context); // Pops the current route
   Navigator.pop(context); // Pops the previous route
+}
+
+class BuildNavItem extends StatefulWidget {
+  final IconData icon;
+  final String label;
+  final int index;
+  final int currentIndex;
+  final ValueChanged<int> onTap;
+
+  BuildNavItem({
+    required this.icon,
+    required this.label,
+    required this.index,
+    required this.currentIndex,
+    required this.onTap,
+  });
+
+  @override
+  _BuildNavItemState createState() => _BuildNavItemState();
+}
+
+class _BuildNavItemState extends State<BuildNavItem> {
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        widget.onTap(
+            widget.index); // Calling the onTap function passed from parent
+      },
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            widget.icon,
+            color: widget.currentIndex == widget.index
+                ? Colors.white
+                : Colors.grey,
+          ),
+          Text(
+            widget.label,
+            style: TextStyle(
+              color: widget.currentIndex == widget.index
+                  ? Colors.white
+                  : Colors.grey,
+              fontSize: 12,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }

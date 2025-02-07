@@ -181,6 +181,10 @@ String formatdate(DateTime date) {
   return DateFormat("yyyy-MM-dd").format(date);
 }
 
+String ddmmyyyyFormat(DateTime date) {
+  return DateFormat("dd-MMM-yyyy").format(date);
+}
+
 List<String> getSaleDate() {
   var salebox = Hive.box<SalesModel>(SALE_BOX);
   var sales = salebox.values;
@@ -328,4 +332,21 @@ void sample() {
     log("length inside loop: ${box.values.length.toString()}");
     log("saleProducts length: ${element.saleProducts.length.toString()}\n");
   }
+}
+
+void sortByName(List<SalesModel> sales) {
+  sales.sort((a, b) =>
+      a.custumerName.toLowerCase().compareTo(b.custumerName.toLowerCase()));
+}
+
+void sortByDate(List<SalesModel> sales) {
+  sales.sort((a, b) => a.saleDate.compareTo(b.saleDate));
+}
+
+void sortByPrice(List<SalesModel> sales) {
+  sales.sort((a, b) => a.totalSalePrice.compareTo(b.totalSalePrice));
+}
+
+List<SalesModel> sortList(List<SalesModel> sales) {
+  return sales.reversed.toList();
 }
