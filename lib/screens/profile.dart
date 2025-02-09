@@ -22,11 +22,16 @@ class _ProfileState extends State<Profile> {
         children: [
           const Text(
             "Account",
-            style: TextStyle(fontSize: 70, color: Colors.black),
+            style: TextStyle(
+              fontSize: 40,
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
           ),
+          const SizedBox(height: 20),
           custemcard("Business Profile", () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => const Businespage()));
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const Businespage()));
           }),
           custemcard("Brands", () {
             Navigator.of(context).push(MaterialPageRoute(
@@ -34,12 +39,12 @@ class _ProfileState extends State<Profile> {
             ));
           }),
           custemcard("Transactions", () {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const TransactionsPage()));
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const TransactionsPage()));
           }),
           custemcard("About", () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => const AboutusPage()));
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const AboutusPage()));
           }),
         ],
       )),

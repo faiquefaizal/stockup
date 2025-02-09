@@ -2,7 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:stockup/db_funtions.dart/product_funtion.dart';
 import 'package:stockup/models/brands/brand_model.dart';
+import 'package:stockup/models/product/product_model.dart';
 
 const BRAND_BOX = "brand";
 ValueNotifier<List<BrandModel>> brandListnotifier = ValueNotifier([]);
@@ -81,4 +83,10 @@ bool brandCheck(BrandModel brand) {
   return brands.any((value) =>
       value.brandname.toLowerCase() == brand.brandname.toLowerCase() &&
       value.brandId != brand.brandId);
+}
+
+bool productCheckInBrand(BrandModel brand) {
+  var product = Hive.box<ProductModel>(PRODUCT_BOX).values;
+  var productBrands = product.map((value) => value.brandId).toSet();
+  return productBrands.contains(brand.brandId);
 }

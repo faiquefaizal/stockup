@@ -17,7 +17,7 @@ class Items extends StatelessWidget {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            customText(text: "Items", size: 70),
+            customText(text: "Items", size: 50),
             Expanded(
               child: ValueListenableBuilder(
                   valueListenable: productsnotifier,
@@ -36,13 +36,21 @@ class Items extends StatelessWidget {
                                         Edititem(index: index)));
                               },
                               child: Card(
-                                color: Colors.grey,
+                                color: Colors.white,
+                                elevation: 4,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
                                 child: ListTile(
-                                  leading: Image.file(
-                                    height: 60,
-                                    width: 50,
-                                    File(product.imagePath),
-                                    fit: BoxFit.cover,
+                                  contentPadding: const EdgeInsets.all(12),
+                                  leading: ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: Image.file(
+                                      height: 60,
+                                      width: 50,
+                                      File(product.imagePath),
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                   title: Text(brandname),
                                   subtitle: Column(
@@ -51,7 +59,8 @@ class Items extends StatelessWidget {
                                       children: [
                                         Text(
                                           product.productame,
-                                          style: const TextStyle(color: Colors.black),
+                                          style: const TextStyle(
+                                              color: Colors.black),
                                         ),
                                         Text(
                                           "Qty: ${product.quatity.toString()}",

@@ -49,12 +49,15 @@ class _AddState extends State<Add> {
           padding: const EdgeInsets.all(10),
           child: Form(
             key: _form,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: ListView(
+              // crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
                   "Add Sale",
-                  style: TextStyle(fontSize: 60, color: Colors.black),
+                  style: TextStyle(
+                      fontSize: 50,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
                 ),
                 fieledvalidation(
                     _custemernamecontroller, "Custemer Name", "Name", (value) {
@@ -132,16 +135,26 @@ class _AddState extends State<Add> {
                                   },
                                   key: Key(saleProducts.productId),
                                   child: Card(
-                                    color: Colors.white,
+                                    color:
+                                        Colors.grey[850], // Darker background
+                                    elevation: 4,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
                                     child: ListTile(
                                       title: Text(
                                         productDetails.productame,
                                         style: const TextStyle(
                                             fontSize: 20,
-                                            fontWeight: FontWeight.bold),
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white),
                                       ),
                                       subtitle: Text(
-                                          "Qty:  ${saleProducts.quantity} X ${productDetails.sellingPrice} =${saleProducts.price}"),
+                                        "Qty:  ${saleProducts.quantity} X ${productDetails.sellingPrice} =${saleProducts.price}",
+                                        style: const TextStyle(
+                                            color: Colors.white70,
+                                            fontSize: 20),
+                                      ),
                                     ),
                                   ));
                             });
@@ -155,8 +168,8 @@ class _AddState extends State<Add> {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const AddProductToSale()));
                   },
-                  background: Colors.white,
-                  foreground: Colors.black,
+                  background: Colors.black,
+                  foreground: Colors.white,
                 )),
                 ValueListenableBuilder(
                   valueListenable: productSaleNotifier,
@@ -168,9 +181,8 @@ class _AddState extends State<Add> {
                     return Text(
                       (total == null) ? "Total: ₹ 0" : "Total: ₹ $total",
                       style: const TextStyle(
-                          fontSize: 50,
-                          fontStyle: FontStyle.italic,
-                          fontWeight: FontWeight.w700,
+                          fontSize: 45,
+                          fontWeight: FontWeight.bold,
                           color: Colors.black),
                     );
                   },

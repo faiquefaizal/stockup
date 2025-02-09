@@ -20,7 +20,6 @@ class _BrandsEditpageState extends State<BrandsEditpage> {
   final TextEditingController _brandeditname = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    getBrand();
     return Scaffold(
       appBar: AppBar(
         title: const Text("Catagories"),
@@ -72,6 +71,13 @@ class _BrandsEditpageState extends State<BrandsEditpage> {
                                               255, 255, 255, 255),
                                         ),
                                         onPressed: () {
+                                          if (productCheckInBrand(brand)) {
+                                            customsnackbar(
+                                                context,
+                                                "Can't Delete brand  because Products exist",
+                                                Colors.red);
+                                            return;
+                                          }
                                           deleteBrand(index);
                                           Navigator.pop(context);
                                         },
@@ -129,8 +135,8 @@ class _BrandsEditpageState extends State<BrandsEditpage> {
                   backgroundColor: Colors.black,
                   foregroundColor: const Color.fromARGB(255, 255, 255, 255),
                 ),
-                onPressed: () async {
-                  await _editbuttonbutton(brand);
+                onPressed: () {
+                  _editbuttonbutton(brand);
                 },
                 child: const Text("edit"),
               )

@@ -3,18 +3,25 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 
 Widget field(
-    TextEditingController controllername, String labeltext, String hinttext,
-    {Color colr = Colors.white,
-    TextInputType inputtype = TextInputType.name,
-    bool showtext = false}) {
+  TextEditingController controllername,
+  String labeltext,
+  String hinttext, {
+  Color fillColor = Colors.white,
+  TextInputType inputtype = TextInputType.text,
+  bool showtext = false,
+}) {
   return TextFormField(
     controller: controllername,
     decoration: InputDecoration(
-        fillColor: colr,
-        filled: true,
-        border: const OutlineInputBorder(),
-        labelText: labeltext,
-        hintText: hinttext),
+      filled: true,
+      fillColor: fillColor,
+      labelText: labeltext,
+      hintText: hinttext,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10), // Smooth rounded edges
+      ),
+      contentPadding: const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
+    ),
     keyboardType: inputtype,
     obscureText: showtext,
   );
@@ -41,13 +48,26 @@ Widget custemcard(String name, Function funtionname) {
 }
 
 void customsnackbar(BuildContext context, String content, Color color) {
-  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-    behavior: SnackBarBehavior.floating,
-    content: Text(content),
-    backgroundColor: color,
-    margin: const EdgeInsets.all(10),
-    padding: const EdgeInsets.all(10),
-  ));
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: color,
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      content: Text(
+        content,
+        style: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          color: Colors.white,
+        ),
+      ),
+      duration: const Duration(seconds: 3),
+    ),
+  );
 }
 
 Widget fieledvalidation(
@@ -55,7 +75,7 @@ Widget fieledvalidation(
   String labeltext,
   String hinttext,
   String? Function(String?)? validator, {
-  Color colr = Colors.white,
+  Color fillColor = Colors.white,
   TextInputType inputtype = TextInputType.name,
   bool showtext = false,
 }) {
@@ -63,11 +83,15 @@ Widget fieledvalidation(
     validator: validator,
     controller: controllername,
     decoration: InputDecoration(
-        fillColor: colr,
-        filled: true,
-        border: const OutlineInputBorder(),
-        labelText: labeltext,
-        hintText: hinttext),
+      filled: true,
+      fillColor: fillColor,
+      labelText: labeltext,
+      hintText: hinttext,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10), // Smooth corners
+      ),
+      contentPadding: const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
+    ),
     keyboardType: inputtype,
     obscureText: showtext,
   );
@@ -272,7 +296,10 @@ class CustemElevatedButtonWithIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
-        icon: Icon(icon),
+        icon: Icon(
+          icon,
+          color: Colors.white,
+        ),
         style: ElevatedButton.styleFrom(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
@@ -446,4 +473,124 @@ class _BuildNavItemState extends State<BuildNavItem> {
       ),
     );
   }
+}
+
+class CustomChoiceChip extends StatelessWidget {
+  final String label;
+  final String type;
+  final int index;
+  final String selected;
+  final int selected1;
+  final Function(String, int) onSelectionChanged;
+
+  CustomChoiceChip({
+    required this.label,
+    required this.type,
+    required this.index,
+    required this.selected,
+    required this.selected1,
+    required this.onSelectionChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    bool isSelected = type == "All" ? selected == "All" : selected1 == index;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 4),
+      child: ChoiceChip(
+        label: Text(
+          label,
+          style: TextStyle(
+            color: isSelected ? Colors.white : Colors.black,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        selected: isSelected,
+        onSelected: (selected) {
+          onSelectionChanged(type, index);
+        },
+        selectedColor: Colors.black,
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        showCheckmark: false,
+      ),
+    );
+  }
+}
+
+class MyCustomWidget extends StatefulWidget {
+  @override
+  _MyCustomWidgetState createState() => _MyCustomWidgetState();
+}
+
+class _MyCustomWidgetState extends State<MyCustomWidget> {
+  String _selected = "All";
+  int _selected1 = -1;
+
+  void _filteredProducts() {
+    // Your logic to filter products goes here
+  }
+
+  void _onSelectionChanged(String type, int index) {
+    setState(() {
+      if (type == "All") {
+        _selected = "All";
+        _selected1 = -1;
+      } else {
+        _selected1 = index;
+        _selected = "";
+      }
+      _filteredProducts();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        CustomChoiceChip(
+          label: "All",
+          type: "All",
+          index: 0,
+          selected: _selected,
+          selected1: _selected1,
+          onSelectionChanged: _onSelectionChanged,
+        ),
+        CustomChoiceChip(
+          label: "Option 1",
+          type: "Option",
+          index: 1,
+          selected: _selected,
+          selected1: _selected1,
+          onSelectionChanged: _onSelectionChanged,
+        ),
+        CustomChoiceChip(
+          label: "Option 2",
+          type: "Option",
+          index: 2,
+          selected: _selected,
+          selected1: _selected1,
+          onSelectionChanged: _onSelectionChanged,
+        ),
+      ],
+    );
+  }
+}
+
+Widget searchField(TextEditingController controller) {
+  return TextField(
+    controller: controller,
+    decoration: InputDecoration(
+      filled: true,
+      fillColor: Colors.white,
+      hintText: "Search products...",
+      prefixIcon: const Icon(Icons.search, color: Colors.black54),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide.none,
+      ),
+      contentPadding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+    ),
+  );
 }

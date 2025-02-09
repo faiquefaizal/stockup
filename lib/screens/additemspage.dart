@@ -73,14 +73,36 @@ class _AdditemspageState extends State<Additemspage> {
                       _openCamera();
                     },
                     child: Container(
-                        color: Colors.grey,
-                        height: 150,
-                        width: 150,
-                        child: (imagepath != null)
-                            ? Image.file(fit: BoxFit.cover, File(imagepath!))
-                            : Center(
-                                child: customText(text: "enter image"),
-                              )),
+                      height: 150,
+                      width: 150,
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade300,
+                        borderRadius: BorderRadius.circular(15),
+                        border: Border.all(color: Colors.black54, width: 2),
+                      ),
+                      child: imagepath != null
+                          ? ClipRRect(
+                              borderRadius: BorderRadius.circular(15),
+                              child: Image.file(
+                                File(imagepath!),
+                                fit: BoxFit.cover,
+                                width: double.infinity,
+                                height: double.infinity,
+                              ),
+                            )
+                          : Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.camera_alt,
+                                    size: 40, color: Colors.black54),
+                                SizedBox(height: 8),
+                                customText(
+                                    text: "Tap to Capture",
+                                    size: 16,
+                                    color: Colors.black),
+                              ],
+                            ),
+                    ),
                   ),
                   const SizedBox(
                     height: 20,

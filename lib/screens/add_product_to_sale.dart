@@ -40,8 +40,12 @@ class _AddProductToSaleState extends State<AddProductToSale> {
                   valueListenable: brandListnotifier,
                   builder: (context, brandmodellist, widget) {
                     return DropdownButtonFormField(
-                        decoration:
-                            const InputDecoration(border: OutlineInputBorder()),
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 12, horizontal: 10),
+                        ),
                         hint: const Text("Brand"),
                         isExpanded: true,
                         style: const TextStyle(color: Colors.black),
@@ -67,7 +71,12 @@ class _AddProductToSaleState extends State<AddProductToSale> {
                 height: 20,
               ),
               DropdownButtonFormField(
-                  decoration: const InputDecoration(border: OutlineInputBorder()),
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    contentPadding: const EdgeInsets.symmetric(
+                        vertical: 12, horizontal: 10),
+                  ),
                   hint: const Text("Select Item"),
                   value: selectedproduct,
                   items: productList.map((element) {
