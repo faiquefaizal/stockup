@@ -17,36 +17,39 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            "Account",
-            style: TextStyle(
-              fontSize: 40,
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
+          body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              "Account",
+              style: TextStyle(
+                fontSize: 40,
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-          const SizedBox(height: 20),
-          custemcard("Business Profile", () {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const Businespage()));
-          }),
-          custemcard("Brands", () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => Brands(),
-            ));
-          }),
-          custemcard("Transactions", () {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const TransactionsPage()));
-          }),
-          custemcard("About", () {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const AboutusPage()));
-          }),
-        ],
+            const SizedBox(height: 5),
+            custemcard("Business Profile", () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const Businespage()));
+            }),
+            custemcard("Brands", () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => Brands(),
+              ));
+            }),
+            custemcard("Transactions", () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const TransactionsPage()));
+            }),
+            custemcard("About", () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const AboutusPage()));
+            }),
+          ],
+        ),
       )),
     );
   }

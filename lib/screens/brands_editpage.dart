@@ -39,53 +39,25 @@ class _BrandsEditpageState extends State<BrandsEditpage> {
                       ),
                       trailing: IconButton(
                           onPressed: () {
-                            showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    title: const Text(
-                                      "Delete it",
-                                      style: TextStyle(fontSize: 50),
-                                    ),
-                                    content: const Text(
-                                      "Are you Sure you want to delete It?",
-                                      style: TextStyle(color: Colors.black),
-                                    ),
-                                    actions: [
-                                      TextButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: const Text(
-                                            "Cancel",
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          )),
-                                      ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(10)),
-                                          backgroundColor: Colors.black,
-                                          foregroundColor: const Color.fromARGB(
-                                              255, 255, 255, 255),
-                                        ),
-                                        onPressed: () {
-                                          if (productCheckInBrand(brand)) {
-                                            customsnackbar(
-                                                context,
-                                                "Can't Delete brand  because Products exist",
-                                                Colors.red);
-                                            return;
-                                          }
-                                          deleteBrand(index);
-                                          Navigator.pop(context);
-                                        },
-                                        child: const Text("Delete"),
-                                      )
-                                    ],
-                                  );
-                                });
+                            CustumAlertDialog(
+                              title: "Delete It",
+                              context: context,
+                              subtitle: "Are you Sure you want to delete It?",
+                              yesButton: "Delete",
+                              noButton: "Cancel",
+                              yesonPressed: () {
+                                if (productCheckInBrand(brand)) {
+                                  customsnackbar(
+                                      context,
+                                      "Can't Delete brand  because Products exist",
+                                      Colors.red);
+                                  return;
+                                }
+                                deleteBrand(index);
+                                Navigator.pop(context);
+                              },
+                              noonpressed: () => Navigator.pop(context),
+                            );
                           },
                           icon: const Icon(
                             Icons.delete,

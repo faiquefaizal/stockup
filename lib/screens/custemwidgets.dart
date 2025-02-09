@@ -431,7 +431,7 @@ class BuildNavItem extends StatefulWidget {
   final int currentIndex;
   final ValueChanged<int> onTap;
 
-  BuildNavItem({
+  const BuildNavItem({super.key, 
     required this.icon,
     required this.label,
     required this.index,
@@ -483,7 +483,7 @@ class CustomChoiceChip extends StatelessWidget {
   final int selected1;
   final Function(String, int) onSelectionChanged;
 
-  CustomChoiceChip({
+  const CustomChoiceChip({super.key, 
     required this.label,
     required this.type,
     required this.index,
@@ -520,6 +520,8 @@ class CustomChoiceChip extends StatelessWidget {
 }
 
 class MyCustomWidget extends StatefulWidget {
+  const MyCustomWidget({super.key});
+
   @override
   _MyCustomWidgetState createState() => _MyCustomWidgetState();
 }

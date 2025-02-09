@@ -116,7 +116,7 @@ class ProductDetailPage extends StatelessWidget {
               child: ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(vertical: 20),
+                    padding: const EdgeInsets.symmetric(vertical: 20),
                     shape: const RoundedRectangleBorder(),
                     backgroundColor: Colors.grey.shade600,
                   ),
@@ -139,7 +139,7 @@ class ProductDetailPage extends StatelessWidget {
               child: ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(vertical: 20),
+                    padding: const EdgeInsets.symmetric(vertical: 20),
                     shape: const RoundedRectangleBorder(),
                     backgroundColor: Colors.black,
                   ),
@@ -154,14 +154,3 @@ class ProductDetailPage extends StatelessWidget {
     );
   }
 }
-// {
-//                                           "name": product.productame,
-//                                           "price": product.sellingPrice,
-//                                           "Ram": product.ram,
-//                                           "color": product.color,
-//                                           "storage": product.storage,
-//                                           "os": product.os,
-//                                           "screensize": product.screenSize,
-//                                           "Brand": product.brandId,
-//                                           "image": product.imagePath
-//                                         },

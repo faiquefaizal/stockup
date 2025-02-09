@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stockup/screens/add.dart';
 import 'package:stockup/screens/custemwidgets.dart';
 import 'package:stockup/screens/dashboard.dart';
@@ -32,11 +31,12 @@ class _HomescreenState extends State<Homescreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: screens[_index],
       bottomNavigationBar: BottomAppBar(
         color: Colors.black,
         height: 65,
-        shape: CircularNotchedRectangle(),
+        shape: const CircularNotchedRectangle(),
         notchMargin: 8,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -55,7 +55,7 @@ class _HomescreenState extends State<Homescreen> {
               currentIndex: _index,
               onTap: _onItemSelected,
             ),
-            SizedBox(width: 40),
+            const SizedBox(width: 40),
             BuildNavItem(
               icon: Icons.inventory,
               label: "Items",
@@ -72,30 +72,7 @@ class _HomescreenState extends State<Homescreen> {
             ),
           ],
         ),
-      )
-      // BottomNavigationBar(
-      //     backgroundColor: Colors.black,
-      //     selectedItemColor: Colors.white,
-      //     unselectedItemColor: Colors.grey,
-      //     onTap: (index) => setState(() {
-      //           _index = index;
-      //         }),
-      //     currentIndex: _index,
-      //     items: const [
-      //       BottomNavigationBarItem(
-      //         // backgroundColor: Colors.black,
-      //         icon: Icon(Icons.home),
-      //         label: "Home",
-      //       ),
-      //       BottomNavigationBarItem(
-      //           icon: Icon(Icons.dashboard_outlined), label: "Dashboard"),
-      //       // BottomNavigationBarItem(icon: Icon(Icons.add), label: "add"),
-      //       BottomNavigationBarItem(
-      //           icon: Icon(FontAwesomeIcons.box), label: "items"),
-      //       BottomNavigationBarItem(
-      //           icon: Icon(Icons.shopify_rounded), label: "profile"),
-      //     ]),
-      ,
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         elevation: 5,
@@ -103,9 +80,9 @@ class _HomescreenState extends State<Homescreen> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
         onPressed: () {
           Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => Add()));
+              .push(MaterialPageRoute(builder: (context) => const Add()));
         },
-        child: Icon(Icons.add, color: Colors.white),
+        child: const Icon(Icons.add, color: Colors.white),
       ),
     );
   }

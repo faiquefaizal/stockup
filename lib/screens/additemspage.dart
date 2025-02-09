@@ -93,9 +93,9 @@ class _AdditemspageState extends State<Additemspage> {
                           : Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(Icons.camera_alt,
+                                const Icon(Icons.camera_alt,
                                     size: 40, color: Colors.black54),
-                                SizedBox(height: 8),
+                                const SizedBox(height: 8),
                                 customText(
                                     text: "Tap to Capture",
                                     size: 16,

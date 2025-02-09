@@ -250,14 +250,6 @@ class _AddState extends State<Add> {
       customsnackbar(context, "Add Product First", Colors.red);
       return;
     }
-    // var sale = SalesModel(
-    //     custumerName: custumerName,
-    //     phoneNumber: phoneNumber,
-    //     saleDate: saleDate,
-    //     productCount: quatity,
-    //     totalSalePrice: totalsale,
-    //     saleId: saleId,
-    //     saleProducts: productList);
     var sale = SalesModel(
       custumerName: custumerName,
       phoneNumber: phoneNumber,
