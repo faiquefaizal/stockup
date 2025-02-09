@@ -136,43 +136,6 @@ class Items extends StatelessWidget {
                                         color: Colors.red,
                                       )),
                                 ),
-                                // child: Padding(
-                                //   padding: const EdgeInsets.all(8.0),
-                                //   child: Row(
-                                //     children: [
-                                //       Container(
-                                //         width: 80,
-                                //         height: 80,
-                                //         child: Image(
-                                //             fit: BoxFit.cover,
-                                //             image: FileImage(
-                                //                 File(product.imagePath))),
-                                //       ),
-                                //       Padding(
-                                //         padding: const EdgeInsets.all(15),
-                                //         child: Column(
-                                //           crossAxisAlignment:
-                                //               CrossAxisAlignment.start,
-                                //           children: [
-                                //             customText(
-                                //                 text: product.productame,
-                                //                 size: 40),
-                                //             Text(
-                                //                 "Quatity: ${product.quatity.toString()}"),
-                                //           ],
-                                //         ),
-                                //       ),
-                                //       Expanded(
-                                //         child: IconButton(
-                                //             onPressed: () {
-                                //               deleteproduct(index);
-                                //             },
-                                //             icon: Icon(Icons.delete,
-                                //                 color: Colors.red)),
-                                //       )
-                                //     ],
-                                //   ),
-                                // ),
                               ),
                             ),
                           );

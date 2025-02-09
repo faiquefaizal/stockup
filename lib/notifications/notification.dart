@@ -6,7 +6,8 @@ final FlutterLocalNotificationsPlugin localNotification =
     FlutterLocalNotificationsPlugin();
 
 Future<void> notificationIntialize() async {
-  const androidsettings = AndroidInitializationSettings("@mipmap/ic_launcher");
+  const androidsettings =
+      AndroidInitializationSettings("@mipmap/launcher_icon");
   InitializationSettings defaultSettings =
       const InitializationSettings(android: androidsettings);
 
@@ -30,8 +31,10 @@ Future<void> showNotifcation(
       NotificationModel(time: time, body: body, title: title);
   await addNotification(notificationmodel);
   const AndroidNotificationDetails stocknotificationDetails =
-      AndroidNotificationDetails("stockcheck", "stockalert",
-          importance: Importance.high, priority: Priority.high);
+      AndroidNotificationDetails("stockcheck_1", "stockalert",
+          importance: Importance.high,
+          priority: Priority.high,
+          sound: RawResourceAndroidNotificationSound("stock_alert_sound"));
 
   NotificationDetails notificationDetails =
       const NotificationDetails(android: stocknotificationDetails);

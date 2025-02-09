@@ -94,7 +94,7 @@ class _HomeState extends State<Home> {
                     icon: const Icon(
                       Icons.notifications_active_rounded,
                       size: 30,
-                      color: Colors.black54,
+                      color: Colors.black,
                     ),
                   ),
                 ],
@@ -216,7 +216,7 @@ class _HomeState extends State<Home> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Product Image
-              Expanded(
+              Flexible(
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: Image(
