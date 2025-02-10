@@ -431,7 +431,8 @@ class BuildNavItem extends StatefulWidget {
   final int currentIndex;
   final ValueChanged<int> onTap;
 
-  const BuildNavItem({super.key, 
+  const BuildNavItem({
+    super.key,
     required this.icon,
     required this.label,
     required this.index,
@@ -483,7 +484,8 @@ class CustomChoiceChip extends StatelessWidget {
   final int selected1;
   final Function(String, int) onSelectionChanged;
 
-  const CustomChoiceChip({super.key, 
+  const CustomChoiceChip({
+    super.key,
     required this.label,
     required this.type,
     required this.index,
@@ -593,6 +595,17 @@ Widget searchField(TextEditingController controller) {
         borderSide: BorderSide.none,
       ),
       contentPadding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+    ),
+  );
+}
+
+Widget headText({required String text}) {
+  return Text(
+    text,
+    style: TextStyle(
+      fontSize: 35,
+      fontWeight: FontWeight.bold,
+      color: Colors.black87,
     ),
   );
 }

@@ -55,13 +55,24 @@ class AboutusPage extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             const Text(
-              "Version 1.0",
+              "Version : 1 . 0",
               style: TextStyle(
-                color: Colors.white,
+                color: Colors.white70,
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
             ),
+            SizedBox(
+              height: 30,
+            ),
+            Text(
+              "Developed by: Faique Faizal",
+              style: TextStyle(
+                color: const Color.fromARGB(135, 255, 255, 255),
+                fontSize: 25,
+                fontWeight: FontWeight.w600,
+              ),
+            )
           ],
         ),
       ),

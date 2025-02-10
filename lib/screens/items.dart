@@ -17,7 +17,7 @@ class Items extends StatelessWidget {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            customText(text: "Items", size: 50),
+            headText(text: "Items"),
             Expanded(
               child: ValueListenableBuilder(
                   valueListenable: productsnotifier,
