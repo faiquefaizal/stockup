@@ -48,13 +48,6 @@ class _HomeState extends State<Home> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.grey[100],
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.black,
-          onPressed: () async {
-            await showNotifcation(title: "Check", body: "Notification test");
-          },
-          child: const Icon(Icons.notifications, color: Colors.black),
-        ),
         body: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
@@ -70,8 +63,7 @@ class _HomeState extends State<Home> {
                           CircleAvatar(
                               radius: 25,
                               backgroundImage: profile == null
-                                  ? const AssetImage(
-                                      "assets/default_profile.png")
+                                  ? const AssetImage("assets/shopicon.webp")
                                   : FileImage(File(profile.shopimage))),
                           const SizedBox(width: 10),
                           Text(

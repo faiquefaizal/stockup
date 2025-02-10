@@ -304,6 +304,10 @@ class _AdditemspageState extends State<Additemspage> {
     var storage = _storagecontroller.text.trim();
     var screenSize = _screensize.text.trim();
     print(selectedBrand);
+    if (imagepath == null) {
+      customsnackbar(context, "Select Image First", Colors.red);
+      return;
+    }
 
     String productId = generateId();
     var product = ProductModel(

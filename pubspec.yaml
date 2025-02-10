@@ -82,6 +82,8 @@ flutter:
   assets:
     - assets/Stock UP.png
     - assets/success_animation.json
+    - assets/shopicon.webp
+    
     
 
 

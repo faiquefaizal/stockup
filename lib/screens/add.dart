@@ -64,8 +64,8 @@ class _AddState extends State<Add> {
                   if (value == null || value.trim().isEmpty) {
                     return "Enter a Name";
                   }
-                  if (value.length < 6) {
-                    return "Name must be at least 6 characters long";
+                  if (value.length < 5) {
+                    return "Name must be at least 5 characters long";
                   }
                   return null;
                 }),
@@ -107,59 +107,55 @@ class _AddState extends State<Add> {
                 const SizedBox(
                   height: 10,
                 ),
-                Flexible(
-                  child: ValueListenableBuilder(
-                      valueListenable: productSaleNotifier,
-                      builder: (context, products, child) {
-                        if (products.isEmpty) {
-                          return const SizedBox.shrink();
-                        }
-                        return ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: products.length,
-                            itemBuilder: (context, index) {
-                              var saleProducts = products[index];
-                              ProductModel productDetails =
-                                  getProductNameFromId(saleProducts.productId);
+                ValueListenableBuilder(
+                    valueListenable: productSaleNotifier,
+                    builder: (context, products, child) {
+                      if (products.isEmpty) {
+                        return const SizedBox.shrink();
+                      }
+                      return ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: products.length,
+                          itemBuilder: (context, index) {
+                            var saleProducts = products[index];
+                            ProductModel productDetails =
+                                getProductNameFromId(saleProducts.productId);
 
-                              return Dismissible(
-                                  background: Container(
-                                    color: Colors.red,
-                                    child: const Icon(Icons.delete),
-                                  ),
-                                  direction: DismissDirection.endToStart,
-                                  onDismissed: (direction) {
-                                    setState(() {
-                                      productSaleNotifier.value.removeAt(index);
-                                    });
-                                  },
-                                  key: Key(saleProducts.productId),
-                                  child: Card(
-                                    color:
-                                        Colors.grey[850], // Darker background
-                                    elevation: 4,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    child: ListTile(
-                                      title: Text(
-                                        productDetails.productame,
-                                        style: const TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white),
-                                      ),
-                                      subtitle: Text(
-                                        "Qty:  ${saleProducts.quantity} X ${productDetails.sellingPrice} =${saleProducts.price}",
-                                        style: const TextStyle(
-                                            color: Colors.white70,
-                                            fontSize: 20),
-                                      ),
+                            return Dismissible(
+                                background: Container(
+                                  color: Colors.red,
+                                  child: const Icon(Icons.delete),
+                                ),
+                                direction: DismissDirection.endToStart,
+                                onDismissed: (direction) {
+                                  setState(() {
+                                    productSaleNotifier.value.removeAt(index);
+                                  });
+                                },
+                                key: Key(saleProducts.productId),
+                                child: Card(
+                                  color: Colors.grey[850], // Darker background
+                                  elevation: 4,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: ListTile(
+                                    title: Text(
+                                      productDetails.productame,
+                                      style: const TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white),
                                     ),
-                                  ));
-                            });
-                      }),
-                ),
+                                    subtitle: Text(
+                                      "Qty:  ${saleProducts.quantity} X ${productDetails.sellingPrice} =${saleProducts.price}",
+                                      style: const TextStyle(
+                                          color: Colors.white70, fontSize: 20),
+                                    ),
+                                  ),
+                                ));
+                          });
+                    }),
                 Center(
                     child: CustemElevatedButtonWithIcon(
                   icon: Icons.add_circle,
@@ -203,12 +199,6 @@ class _AddState extends State<Add> {
               ],
             ),
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            dashBorad();
-          },
-          child: const Icon(Icons.refresh),
         ),
       ),
     );
@@ -291,8 +281,4 @@ class _AddState extends State<Add> {
           )));
     }
   }
-}
-
-void dashBorad() {
-  log("lenght ${productSaleNotifier.value.length.toString()}");
 }
