@@ -6,14 +6,14 @@ import 'package:stockup/screens/home.dart';
 import 'package:stockup/screens/items.dart';
 import 'package:stockup/screens/profile.dart';
 
-class Homescreen extends StatefulWidget {
-  const Homescreen({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<Homescreen> createState() => _HomescreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomescreenState extends State<Homescreen> {
+class _HomeScreenState extends State<HomeScreen> {
   int _index = 0;
   final screens = [
     const Home(),

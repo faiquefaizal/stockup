@@ -23,7 +23,7 @@ class _DashboardState extends State<Dashboard> {
     return SafeArea(
       child: Scaffold(
         body: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(8.0),
           child: ValueListenableBuilder(
             valueListenable: salenotifier,
             builder: (context, value, child) {
@@ -130,7 +130,7 @@ class _DashboardState extends State<Dashboard> {
                                   Text(
                                     getProfit().toString(),
                                     style: const TextStyle(
-                                        fontSize: 35,
+                                        fontSize: 30,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white),
                                   ),
@@ -191,7 +191,7 @@ class _DashboardState extends State<Dashboard> {
                                               labels[index],
                                               style: const TextStyle(
                                                   color: Colors.black,
-                                                  fontSize: 10),
+                                                  fontSize: 9),
                                             ),
                                           );
                                         }
@@ -203,6 +203,7 @@ class _DashboardState extends State<Dashboard> {
                                     sideTitles: SideTitles(
                                       reservedSize: 40,
                                       showTitles: true,
+                                      interval: 100,
                                       getTitlesWidget: (value, meta) {
                                         return SideTitleWidget(
                                           meta: meta,

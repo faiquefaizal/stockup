@@ -182,50 +182,77 @@ class _AdditemspageState extends State<Additemspage> {
                     ],
                   ),
                   const SizedBox(height: 20),
-                  fieledvalidation(_ramcontroller, "Ram", "enter the ram ",
-                      inputtype: TextInputType.number, (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return "Please enter RAM";
-                    }
-
-                    return null;
-                  }),
-                  const SizedBox(height: 20),
-                  fieledvalidation(_colorcontroller, "color",
-                      "enter the color of the  phone", (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return "Please enter Color";
-                    }
-
-                    return null;
-                  }),
+                  fieledvalidation(
+                    _ramcontroller,
+                    "RAM",
+                    "Enter the RAM",
+                    inputtype: TextInputType.number,
+                    (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return "Please enter RAM";
+                      }
+                      if (int.tryParse(value) == null) {
+                        return "Enter a valid number";
+                      }
+                      return null;
+                    },
+                  ),
                   const SizedBox(height: 20),
                   fieledvalidation(
-                      _storagecontroller, "Storage", "phone storage capacity",
-                      inputtype: TextInputType.number, (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return "Please enter Storage";
-                    }
-
-                    return null;
-                  }),
+                    _colorcontroller,
+                    "Color",
+                    "Enter the color of the phone",
+                    (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return "Please enter Color";
+                      }
+                      return null;
+                    },
+                  ),
                   const SizedBox(height: 20),
                   fieledvalidation(
-                      _operationgsystemcontroller, "OS", "Operating System",
-                      (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return "Please enter operating system";
-                    }
-                    return null;
-                  }),
+                    _storagecontroller,
+                    "Storage",
+                    "Phone storage capacity",
+                    inputtype: TextInputType.number,
+                    (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return "Please enter Storage";
+                      }
+                      if (int.tryParse(value) == null) {
+                        return "Enter a valid number";
+                      }
+                      return null;
+                    },
+                  ),
                   const SizedBox(height: 20),
-                  fieledvalidation(_screensize, "Screen size", "Screen Size",
-                      (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return "Please enter  screen size";
-                    }
-                    return null;
-                  }),
+                  fieledvalidation(
+                    _operationgsystemcontroller,
+                    "OS",
+                    "Operating System",
+                    (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return "Please enter operating system";
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  fieledvalidation(
+                    _screensize,
+                    "Screen Size",
+                    "Enter screen size in inches",
+                    inputtype: TextInputType.numberWithOptions(decimal: true),
+                    (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return "Please enter screen size";
+                      }
+                      if (double.tryParse(value) == null) {
+                        return "Enter a valid number";
+                      }
+                      return null;
+                    },
+                  ),
                   const SizedBox(
                     height: 20,
                   ),

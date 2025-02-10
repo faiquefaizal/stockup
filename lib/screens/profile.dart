@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stockup/screens/aboutus_page.dart';
 import 'package:stockup/screens/brand.dart';
-import 'package:stockup/screens/businesPage.dart';
+import 'package:stockup/screens/busines_page.dart';
 import 'package:stockup/screens/custemwidgets.dart';
 import 'package:stockup/screens/transactions_page.dart';
 

@@ -17,6 +17,7 @@ class Edititem extends StatefulWidget {
 }
 
 class _EdititemState extends State<Edititem> {
+  final _form = GlobalKey<FormState>();
   final _itemnamecontroller = TextEditingController();
 
   final _pricecontroller = TextEditingController();
@@ -83,89 +84,183 @@ class _EdititemState extends State<Edititem> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(10),
-          child: Column(
-            children: [
-              InkWell(
-                onTap: () {
-                  _openCamera();
-                },
-                child: Container(
-                    color: Colors.grey,
-                    height: 150,
-                    width: 150,
-                    child: (imagepath != null)
-                        ? Image.file(fit: BoxFit.cover, File(imagepath!))
-                        : Center(
-                            child: customText(text: "enter image"),
-                          )),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              field(_itemnamecontroller, "item name", "model name"),
-              const SizedBox(height: 20),
-              field(_pricecontroller, "Price", "buying price"),
-              const SizedBox(height: 20),
-              field(_sellingprice, "Selling price", "Selling price"),
-              const SizedBox(height: 20),
-              Row(
-                children: [
-                  ValueListenableBuilder(
-                      valueListenable: brandListnotifier,
-                      builder: (context, List<BrandModel> value, child) {
-                        // List<String> list =
-                        //     value.map((brand) => brand.brandname).toList();
+          child: Form(
+            key: _form,
+            child: Column(
+              children: [
+                InkWell(
+                  onTap: () {
+                    _openCamera();
+                  },
+                  child: Container(
+                      height: 150,
+                      width: 150,
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade300,
+                        borderRadius: BorderRadius.circular(15),
+                        border: Border.all(color: Colors.black54, width: 2),
+                      ),
+                      child: (imagepath != null)
+                          ? Image.file(fit: BoxFit.cover, File(imagepath!))
+                          : Center(
+                              child: customText(text: "enter image"),
+                            )),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                fieledvalidation(_itemnamecontroller, "item name", "model name",
+                    inputtype: TextInputType.text, (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return "Please enter item name";
+                  }
+                  return null;
+                }),
+                const SizedBox(height: 20),
+                fieledvalidation(_pricecontroller, "Price", "buying price",
+                    inputtype: TextInputType.number, (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return "Please enter item name";
+                  }
+                  if (int.tryParse(value) == null) {
+                    return "Please enter a valid number";
+                  }
+                  return null;
+                }),
+                const SizedBox(height: 20),
+                field(_sellingprice, "Selling price", "Selling price"),
+                const SizedBox(height: 20),
+                Row(
+                  children: [
+                    ValueListenableBuilder(
+                        valueListenable: brandListnotifier,
+                        builder: (context, List<BrandModel> value, child) {
+                          // List<String> list =
+                          //     value.map((brand) => brand.brandname).toList();
 
-                        return DropdownButton<String>(
-                          items: value.map((item) {
-                            return DropdownMenuItem<String>(
-                              value: item.brandId,
-                              child: Text(item.brandname),
-                            );
-                          }).toList(),
-                          value: selectedBrand,
-                          hint: const Text("Select a Brand"),
-                          onChanged: (selectedValue) {
-                            setState(() {
-                              selectedBrand = selectedValue;
-                            });
-                          },
-                        );
+                          return DropdownButton<String>(
+                            items: value.map((item) {
+                              return DropdownMenuItem<String>(
+                                value: item.brandId,
+                                child: Text(item.brandname),
+                              );
+                            }).toList(),
+                            value: selectedBrand,
+                            hint: const Text("Select a Brand"),
+                            onChanged: (selectedValue) {
+                              setState(() {
+                                selectedBrand = selectedValue;
+                              });
+                            },
+                          );
+                        }),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Expanded(
+                      child: fieledvalidation(
+                          _quantity, "Quatity", "Stock Count",
+                          inputtype: TextInputType.number, (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return "Please enter quatity";
+                        }
+                        if (int.tryParse(value) == null) {
+                          return "Please enter a valid number";
+                        }
+                        return null;
                       }),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  Expanded(
-                      child: field(_quantity, "Quatity", "Stock Count",
-                          inputtype: TextInputType.number)),
-                ],
-              ),
-              const SizedBox(height: 20),
-              field(_ramcontroller, "Ram", "enter the ram "),
-              const SizedBox(height: 20),
-              field(_colorcontroller, "color", "enter the color of the  phone"),
-              const SizedBox(height: 20),
-              field(_storagecontroller, "Storage", "phone storage capacity"),
-              const SizedBox(height: 20),
-              field(_operationgsystemcontroller, "OS", "Operating System"),
-              const SizedBox(height: 20),
-              field(_screensize, "Screen size", "Screen Size"),
-              const SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                height: 40,
-                width: double.infinity,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black,
-                        foregroundColor: Colors.white),
-                    onPressed: () {
-                      _savebutton();
-                    },
-                    child: const Text("Edit Product")),
-              )
-            ],
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                fieledvalidation(
+                  _ramcontroller,
+                  "RAM",
+                  "Enter the RAM",
+                  inputtype: TextInputType.number,
+                  (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return "Please enter RAM";
+                    }
+                    if (int.tryParse(value) == null) {
+                      return "Enter a valid number";
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 20),
+                fieledvalidation(
+                  _colorcontroller,
+                  "Color",
+                  "Enter the color of the phone",
+                  (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return "Please enter Color";
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 20),
+                fieledvalidation(
+                  _storagecontroller,
+                  "Storage",
+                  "Phone storage capacity",
+                  inputtype: TextInputType.number,
+                  (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return "Please enter Storage";
+                    }
+                    if (int.tryParse(value) == null) {
+                      return "Enter a valid number";
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 20),
+                fieledvalidation(
+                  _operationgsystemcontroller,
+                  "OS",
+                  "Operating System",
+                  (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return "Please enter operating system";
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 20),
+                fieledvalidation(
+                  _screensize,
+                  "Screen Size",
+                  "Enter screen size in inches",
+                  inputtype: TextInputType.numberWithOptions(decimal: true),
+                  (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return "Please enter screen size";
+                    }
+                    if (double.tryParse(value) == null) {
+                      return "Enter a valid number";
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  height: 40,
+                  width: double.infinity,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black,
+                          foregroundColor: Colors.white),
+                      onPressed: () {
+                        _savebutton();
+                      },
+                      child: const Text("Edit Product")),
+                )
+              ],
+            ),
           ),
         ),
       ),

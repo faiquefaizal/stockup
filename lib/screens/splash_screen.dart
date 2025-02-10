@@ -5,7 +5,7 @@ import 'package:stockup/db_funtions.dart/business_profile.dart';
 import 'package:stockup/db_funtions.dart/notification_funtion.dart';
 import 'package:stockup/db_funtions.dart/product_funtion.dart';
 import 'package:stockup/db_funtions.dart/sale_funtion.dart';
-import 'package:stockup/homeScreen.dart';
+import 'package:stockup/home_screen.dart';
 import 'package:stockup/models/brands/brand_model.dart';
 import 'package:stockup/models/businessprofile/business_profile.dart';
 import 'package:stockup/models/notification/notification_model.dart';
@@ -39,8 +39,8 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> gotomainscreen() async {
     await Future.delayed(const Duration(seconds: 3));
     await intializeBoxes();
-    Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (context) => const Homescreen()));
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const HomeScreen()));
   }
 }
 

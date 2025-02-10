@@ -1,7 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:stockup/db_funtions.dart/product_funtion.dart';
+import 'package:stockup/db_funtions.dart/product_sale_funtion.dart';
 import 'package:stockup/models/product/product_model.dart';
+import 'package:stockup/models/sales/sale_item/product_sale_model.dart';
+import 'package:stockup/screens/add.dart';
+import 'package:stockup/screens/add_product_to_sale.dart';
 import 'package:stockup/screens/custemwidgets.dart';
 import 'package:stockup/screens/editItem.dart';
 
@@ -137,7 +142,16 @@ class ProductDetailPage extends StatelessWidget {
             child: SizedBox(
               height: 80,
               child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    // var product = ProductSaleModel(
+                    //     productId: productdetails.productId,
+                    //     price: productdetails.sellingPrice,
+                    //     quantity: 1);
+                    addProductFromProductDetailPage(productdetails, context);
+
+                    Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => const Add()));
+                  },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 20),
                     shape: const RoundedRectangleBorder(),
