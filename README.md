@@ -1,16 +1,34 @@
-# stockup
+🧾 StockUp – Inventory & Sales Manager
 
-A new Flutter project.
+StockUp is a modern and easy-to-use inventory management and sales tracking app built with Flutter. It helps small businesses, shop owners, and freelancers efficiently manage their stock, sales, and profits — all from one place.
 
-## Getting Started
+🚀 Features
 
-This project is a starting point for a Flutter application.
+✅ Inventory Management – Add, update, and organize your products easily.
+✅ Sales Tracking – Record and manage your sales with customer details.
+✅ Profit & Analytics Dashboard – Visualize performance using charts and insights.
+✅ Notifications – Stay updated on low stock and important sale events.
+✅ Business Summary – Track total sales, items sold, and overall profit.
+✅ Clean UI – Minimal and responsive design for smooth navigation.
 
-A few resources to get you started if this is your first Flutter project:
+🛠️ Tech Stack
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Framework: Flutter (Dart)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Database: Hive (Local Database)
+
+Charts: fl_chart
+
+State Management: ValueNotifier
+
+Backend: Local storage (Offline)
+
+📱 Screens
+
+Dashboard – Displays total sales, items sold, and profit graphically.
+
+Add Sale – Record customer sales with date, quantity, and total price.
+
+Products – Manage your product list efficiently.
+
+Notifications – Track alerts for low stock or key updates.
